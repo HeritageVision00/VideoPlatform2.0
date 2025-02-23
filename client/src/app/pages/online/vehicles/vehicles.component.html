@@ -1,0 +1,106 @@
+<!--  
+<nb-card class="custom-dialog-wrapper"> 
+<nb-card-header class="head-car">
+    car (Vehicles)
+</nb-card-header>
+<nb-card-body class="body"> 
+<form action=""  (ngSubmit)="onProcessVideoSubmit()" >
+    <div class="row"  >
+        <div class="col-12 body"> 
+
+        <input type="radio" id="bikes" name="vehicleClass" value="Bikes">
+        <label for="bikes">Bikes</label> &nbsp; &nbsp;
+         
+
+        <input type="radio" id="bus" name="vehicleClass" value="Bus">
+        <label for="bus">Bus</label>  &nbsp; &nbsp;
+        
+    
+        <input type="radio" id="3wheeler" name="vehicleClass" value="3wheeler">
+        <label for="3wheeler">3 Wheeler</label>  
+        
+    </div>
+    <div class="col-12 body"> 
+        <input type="radio" id="car" name="vehicleClass" value="Car">
+        <label for="car">Car</label> &nbsp; &nbsp; &nbsp;&nbsp;
+        
+    
+        <input type="radio" id="trucks" name="vehicleClass" value="Trucks">
+        <label for="trucks">Trucks</label>&nbsp;
+    
+        <input type="radio" id="others" name="vehicleClass" value="Others">
+        <label for="others">Others</label> 
+    </div>
+    <div class=" col-12">
+        <button type="button" class="btn btn-primary" (click)="onProcessVideoSubmit()"  >Process</button> &nbsp; &nbsp;   &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary"   >Cancel</button>
+    </div>
+     
+    </div>
+</form>
+</nb-card-body>
+</nb-card> -->
+<!-- <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-car">
+      car (Vehicles)
+    </nb-card-header>
+    <nb-card-body class="body">
+      <form [formGroup]="processForm" (ngSubmit)="onProcessVideoSubmit()">
+        <div class="row">
+          <div class="col-12 body">
+            <input type="radio" formControlName="bikes" id="bikes" name="vehicleClass" value="Bikes">
+            <label for="bikes">Bikes</label> &nbsp; &nbsp;
+            <input type="radio" formControlName="bus" id="bus" name="vehicleClass" value="Bus">
+            <label for="bus">Bus</label> &nbsp; &nbsp;
+            <input type="radio" formControlName="3wheeler" id="3wheeler" name="vehicleClass" value="3wheeler">
+            <label for="3wheeler">3 Wheeler</label>
+          </div>
+           
+          <div class="col-12 body">
+            <input type="radio" formControlName="car" id="car" name="vehicleClass" value="Car">
+            <label for="car">Car</label> &nbsp; &nbsp; &nbsp;&nbsp;
+            <input type="radio" formControlName="trucks" id="trucks" name="vehicleClass" value="Trucks">
+            <label for="trucks">Trucks</label>&nbsp;
+            <input type="radio" formControlName="others" id="others" name="vehicleClass" value="Others">
+            <label for="others">Others</label>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Process</button> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card> -->
+  <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-car">
+      car (Vehicles)
+    </nb-card-header>
+    <nb-card-body class="body">
+      <form [formGroup]="processForm" (ngSubmit)="onProcessVideoSubmit()">
+        <div class="row">
+          <div class="col-12 body">
+            <input type="radio" formControlName="bikes" id="bikes" name="vehicleClass" value="Bikes" (click)="selectVehicle('Bikes')">
+            <label for="bikes">Bikes</label> &nbsp; &nbsp;
+            <input type="radio" formControlName="bus" id="bus" name="vehicleClass" value="Bus" (click)="selectVehicle('Bus')">
+            <label for="bus">Bus</label> &nbsp; &nbsp;
+            <input type="radio" formControlName="3wheeler" id="3wheeler" name="vehicleClass" value="3wheeler" (click)="selectVehicle('3 Wheeler')">
+            <label for="3wheeler">3 Wheeler</label>
+          </div>
+           
+          <div class="col-12 body">
+            <input type="radio" formControlName="car" id="car" name="vehicleClass" value="Car" (click)="selectVehicle('Car')">
+            <label for="car">Car</label> &nbsp; &nbsp; &nbsp;&nbsp;
+            <input type="radio" formControlName="trucks" id="trucks" name="vehicleClass" value="Trucks" (click)="selectVehicle('Trucks')">
+            <label for="trucks">Trucks</label>&nbsp;
+            <input type="radio" formControlName="others" id="others" name="vehicleClass" value="Others" (click)="selectVehicle('Others')">
+            <label for="others">Others</label>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Process</button> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>

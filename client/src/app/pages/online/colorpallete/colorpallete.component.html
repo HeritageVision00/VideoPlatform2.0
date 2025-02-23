@@ -1,0 +1,59 @@
+<!-- <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-per">
+         Color
+    </nb-card-header>
+    <nb-card-body class="body-color">
+        <form action="">
+            <div  >
+                <span class="coloro mr-3" style="cursor: pointer;"><b style="font-size: 20px;">Orange</b></span>
+                <span class="colorp" style="cursor: pointer;"><b style="font-size: 20px;"> Pink &nbsp;</b></span>
+                <br>
+                <br>
+                <span class="colorr mr-2" style="cursor: pointer;"><b style="font-size: 20px;">&nbsp; &nbsp; red &nbsp;&nbsp; </b></span>
+                <span class="colory" style="cursor: pointer;"><b style="font-size: 19px;">Yellow</b></span>
+                <br>
+                <br>
+                <span class="colory mr-2" style="background: black; cursor: pointer"><b style="font-size: 19px;">&nbsp;&nbsp; Black &nbsp;</b></span>
+                <span class="colory " style="background: green; cursor: pointer"><b style="font-size: 19px;"> Green</b></span>
+            </div>
+            <br>
+            <div style="background: #535C68; padding: 8px; border-radius: 10px;">
+                <button type="button" class="btn mr-2 btn-primary"  >Proceed</button>  
+                <button type="button" class="btn btn-primary"> Back</button>
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card> -->
+<nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-per">
+         Color
+    </nb-card-header>
+    <nb-card-body class="body-color">
+        <form (ngSubmit)="onProcessVideoSubmit()">
+            <div>
+                <span class="coloro mr-3" style="cursor: pointer;" (click)="selectcolor('Orange')"><b style="font-size: 20px;">Orange</b></span>
+                <span class="colorp" style="cursor: pointer;" (click)="selectcolor('Pink')"><b style="font-size: 20px;"> Pink &nbsp;</b></span>
+                <br>
+                <br>
+                <span class="colorr mr-2" style="cursor: pointer;" (click)="selectcolor('Red')"><b style="font-size: 20px;">&nbsp; &nbsp; red &nbsp;&nbsp; </b></span>
+                <span class="colory" style="cursor: pointer;" (click)="selectcolor('Yellow')"><b style="font-size: 19px;">Yellow</b></span>
+                <br>
+                <br>
+                <span class="colory mr-2" style="background: black; cursor: pointer" (click)="selectcolor('Black')"><b style="font-size: 19px;">&nbsp;&nbsp; Black &nbsp;</b></span>
+                <span class="colory " style="background: green; cursor: pointer" (click)="selectcolor('Green')"><b style="font-size: 19px;"> Green</b></span>
+            </div>
+            <br>
+            <!-- <div style="background: #535C68; padding: 8px; border-radius: 10px;">
+                <button type="submit" class="btn mr-2 btn-primary">Proceed</button>  
+                <button type="button" class="btn btn-primary" (click)="onCancel()"> Back</button>
+            </div> -->
+            <div>
+                <button type="submit" class="btn btn-primary">Proceed</button>  
+                &nbsp;&nbsp; &nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" (click)="onCancel()"> Back</button>
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card>

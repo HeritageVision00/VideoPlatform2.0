@@ -1,0 +1,193 @@
+/* General Reset */
+.no-padding {
+  padding: 0px;
+}
+
+.menu-card {
+  border: 0px;
+}
+
+.row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  background-color: #f4f5f7 !important; /* Light gray for modern look */
+  border-right: 1px solid #dcdde1; /* Subtle border */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  color: white;
+  transition: flex-basis 0.3s ease, width 0.3s ease;
+}
+
+.sidebar-collapsed {
+  flex-basis: 60px !important;
+  min-width: 60px !important;
+  width: 60px !important;
+  transition: flex-basis 0.3s ease, width 0.3s ease;
+}
+
+
+.sidebar-expanded {
+  flex-basis: 260px !important;
+  width: 260px !important;
+  transition: flex-basis 0.3s ease, width 0.3s ease;
+}
+
+
+/* Sidebar Header */
+.menu-card-header {
+  background: linear-gradient(135deg, #4c8bf5, #00a8ff); /* Gradient for header */
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  color: white;
+}
+
+.logo-container{
+  width: 100%;
+  max-height: 80px;
+  object-fit: contain;
+  background-color: #e0e0e0;
+}
+
+/* Sidebar List Items */
+nb-list-item {
+  text-align: left; /* Aligns text to the left */
+  display: block; /* Ensures the item takes full width */
+  padding: 12px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #4c4c4c;
+  border-radius: 4px;
+  margin: 4px 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+nb-list-item:hover {
+  background-color: #e1e9f1; /* Light blue hover */
+  color: #333333; /* Darker text */
+}
+
+/* Active State */
+.algo-menu-selected {
+  background-color: #4c8bf5 !important; /* Highlight active item */
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Category Headers */
+.algo-menu-category {
+  font-size: 12px;
+  font-weight: bold;
+  color: #7f8c8d; /* Muted gray */
+  text-transform: uppercase;
+  margin: 12px 8px 4px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #dcdde1;
+}
+
+/* Notification Badge */
+.icon-with-number {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.number {
+  position: absolute;
+  top: -15px;
+  font-size: 12px;
+  color: white;
+  margin-left: 0px;
+}
+
+.circle {
+  background-color: red;
+  width: auto;
+  height: auto;
+  text-align: center;
+  border-radius: 40px;
+  padding: 3px;
+}
+
+/* Main Content Area */
+.main-content {
+  background-color: #FFF9E6 !important; /* Soft-off-white main content */
+  flex-grow: 1;
+  flex-basis: calc(100% - 260px); /* Adjusts for sidebar width */
+  width: calc(100% - 260px);
+  transition: flex-basis 0.3s ease, width 0.3s ease;
+}
+
+.main-content-expanded {
+  flex-basis: calc(100% - 60px) !important;
+  width: calc(100% - 60px) !important;
+  transition: flex-basis 0.3s ease, width 0.3s ease;
+}
+.main-content-collapsed {
+  flex-basis: calc(100% - 260px) !important;
+  width: calc(100% - 260px) !important;
+  transition: flex-basis 0.3s ease, width 0.3s ease;
+}
+
+/* Dashboard Container */
+.dashboard-ctr {
+  padding: 0px !important;
+  flex-grow: 1;
+}
+
+/* Header Container */
+.header-container {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+/* Sidebar Toggle */
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 1.25rem;
+  text-decoration: none;
+  color: #333333;
+}
+
+/* Responsive Image */
+.responsive {
+  max-width: 100%; /* Prevents the image from exceeding container width */
+  max-height: 100px; /* Restrict height to fit nicely in the sidebar */
+  object-fit: contain; /* Maintain the logo’s aspect ratio */
+  width: auto; /* Adjusts width automatically */
+  height: auto; /* Adjusts height automatically */
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .sidebar {
+    flex-basis: 60px;
+  }
+
+  nb-list-item {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .menu-card-header {
+    padding: 0.5rem;
+  }
+
+  .responsive {
+    max-height: 50px;
+  }
+}
+
+
+.sidebar-toggle nb-icon {
+  font-size: 32px; /* Adjust to make it bigger */
+  width: 40px;
+  height: 40px; /* Increase width and height */
+}

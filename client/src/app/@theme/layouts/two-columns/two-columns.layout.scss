@@ -1,0 +1,29 @@
+@import '../../styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  .menu-sidebar ::ng-deep .scrollable {
+    padding-top: nb-theme(layout-padding-top);
+    background-color: #FFFFFF;
+  }
+}
+.menu-sidebar {
+  //border-width: 3px; /* Adjust width as needed */
+ //height: 100%; /* Ensure sidebar covers full height */
+ position: fixed;
+ top: 0;
+ right: 0; /* Position sidebar on the right */
+ //background: blue;
+ //background-color: red;
+ left: auto; //this proper fix of sidebar of position
+ z-index: 5000; /* Ensure sidebar appears above other content */
+}
+@media screen and (max-width: 1200px) {
+  .menu-sidebar {
+    margin-left: auto; /* Push sidebar to the right */
+     /* Adjust width as needed */
+    /* Optionally, you can add transitions for smoother animation */
+    transition: margin-left 0.3s ease;
+  }
+}

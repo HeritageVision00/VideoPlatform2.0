@@ -1,0 +1,13 @@
+<button nbButton [status]="'info'" class="btn-block" (click)="selected(0)">Check-In for the day</button>
+<button nbButton [status]="'info'" class="btn-block" (click)="selected(1)">Going out for break</button>
+<button nbButton [status]="'info'" class="btn-block" (click)="selected(2)">Going out for meeting</button>
+<button nbButton [status]="'info'" class="btn-block" (click)="selected(3)">Return from break</button>
+<button nbButton [status]="'info'" class="btn-block" (click)="selected(4)">Return from meeting</button>
+<button nbButton [status]="'info'" class="btn-block" (click)="selected(5)">Check-Out/Going for Meeting</button>
+<button nbButton [status]="'info'" class="btn-block" (click)="selected(6)">Check-Out for the Day</button>
+
+<nb-card style="margin-top: 5px" *ngIf="message !== null">
+  <nb-card-body>
+    <p style="text-align: center;">{{message}}</p>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,98 @@
+<!-- <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-car">
+       AOD (Objects)
+    </nb-card-header>
+    <nb-card-body class="body">
+      <form id="">
+        <div class="row">
+          <div class="col-12 body">
+            <label for="time"><b> Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;  &nbsp; : &nbsp;</b> </label> 
+                <input nbInput id="time" style="width: 120px;"
+                       type="text"
+                       [nbTimepicker]="timepicker"/>
+                <nb-timepicker style="right: 30%;"
+                  #timepicker="nbTimepicker" twelveHoursFormat></nb-timepicker>
+                  <br>
+                  <br>
+                  <label for="wallet" style="margin-bottom: 10px;"><b>Objects&nbsp;   &nbsp;&nbsp; : &nbsp;</b></label>  
+                  <nb-select id="wallet" placeholder="Object Class">
+                    <nb-option selected value="Suitcase">Suit case</nb-option>
+                    <nb-option value="Sackbag">Sackbag</nb-option>
+                    <nb-option value="Purse">Purse</nb-option>
+                    <nb-option value="Pouch">Pouch</nb-option>
+                    <nb-option value="Suitcase">Suitcase</nb-option>
+                </nb-select>
+                <br><br>
+                 
+                  <span><b>Color&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></span>&nbsp;
+                  <nb-select id="day" placeholder="List of  Colors">
+                    <nb-option selected value="Red">Red</nb-option>
+                    <nb-option value="Blue">Blue</nb-option>
+                    <nb-option value="Green">Green</nb-option>
+                </nb-select>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Process</button> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary"  >Cancel</button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card> -->
+  <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-car">
+      AOD (Objects)
+    </nb-card-header>
+    <nb-card-body class="body">
+      <form [formGroup]="processForm" (ngSubmit)="onProcessSubmit()">
+        <div class="row">
+          <div class="col-12 body">
+            <label for="date"><b> Date and Time:</b> &nbsp;&nbsp;</label>
+            <input nbInput placeholder="Pick start time" id="startdateandtime" [nbTimepicker]="startdateTimePicker" formControlName="startdateTimePicker">
+            <nb-timepicker #startdateTimePicker withSeconds></nb-timepicker>            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ml-5">To</span>
+            <br>
+            <input nbInput placeholder="Pick end time" id="enddateandtime"  [nbTimepicker]="enddateTimePicker" formControlName="enddateTimePicker">
+            <nb-timepicker #enddateTimePicker withSeconds></nb-timepicker>            <!-- <label for="date"><b> Date:</b> &nbsp;&nbsp;</label>
+            <input nbInput placeholder="Pick Date" id="date" style="width: 140px;" [nbDatepicker]="dateTimePicker" formControlName="PickDate">
+            <nb-datepicker #dateTimePicker></nb-datepicker>
+            <br>
+            <label class="mt-3"  ><b> Time: &nbsp;</b></label>
+            <input nbInput id="StartTime" style="width: 140px;" type="text" placeholder="Start Time" [nbTimepicker]="timepicker"
+              formControlName="StartTime" />
+            <nb-timepicker style="right: 30%;" #timepicker="nbTimepicker" twelveHoursFormat></nb-timepicker>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ml-5">To</span>
+            <input class="ml-5" required nbInput id="EndTime " placeholder="End Time " formControlName="EndTime" style="width: 140px;"
+              type="text" [nbTimepicker]="timepickerto" />
+            <nb-timepicker style="right: 30%;" #timepickerto twelveHoursFormat></nb-timepicker> -->
+            <br><br>
+            <label for="wallet"><b>Objects:</b></label>  
+            <nb-select id="wallet" formControlName="object" placeholder="Object Class">
+              <nb-option selected value="Handbag">Handbag</nb-option>
+              <nb-option value="Backpack">Backpack</nb-option>
+              <nb-option value="TrollyBag">TrollyBag</nb-option>
+              <nb-option value="All">All</nb-option>
+            </nb-select>
+            <br><br>
+            <!-- <span><b>Color:</b></span>
+            <nb-select id="color" formControlName="color" placeholder="List of Colors">
+              <nb-option selected value="Red">Red</nb-option>
+              <nb-option value="Blue">Blue</nb-option>
+              <nb-option value="Green">Green</nb-option>
+            </nb-select> -->
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Process</button>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+          </div>
+          <span *ngIf="showMissingInputsMessage" class="text-danger">
+            Please fill the missing inputs:
+            <span *ngFor="let input of getMissingInputs()">
+              {{ input }}{{ $last ? '' : ', ' }}
+            </span>
+          </span>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>

@@ -1,0 +1,28 @@
+<div class="video-container">
+    <div class="video-card" *ngFor="let video of data.filename">
+        <nb-card [ngClass]="{'disabled-card': video.disabled}">
+            <nb-card-body>
+                <video width="100%" height="auto" controls>
+                    <source [src]="video" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div>
+                <button
+                [status]="'danger'"
+                nbButton
+                class="btn-block"
+                (click)="delete(video , i)"
+                >
+                Delete &nbsp;<i class="far fa-trash-alt"></i>
+                </button>
+                <!-- <textarea 
+                placeholder="Enter description (max 64 characters)" 
+                [(ngModel)]="video.description" 
+                maxlength="64" 
+                class="form-control" 
+                style="height: 5vw; width: 100%; resize: none;"></textarea> -->
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

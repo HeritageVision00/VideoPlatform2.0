@@ -1,0 +1,13 @@
+<div *ngIf="type === 0 || type === 1 || type === 2 || type === 3 || type === 4 || type === 5 || type === 7; else act">
+    <button  class='btn-block' nbButton [status]="'danger'" (click)="confirm()"> Confirm
+    </button>
+    <button  class='btn-block' nbButton [status]="'info'" (click)="cancel()"> Cancel
+    </button>
+</div>
+
+<ng-template #act>
+    <p>Your session has expired, please log in again</p>
+    <button  class='btn-block' nbButton [status]="'info'" (click)="reload()"> Reload
+    </button>
+    <!-- <button class="btn btn-success" disabled><i class="fas fa-check-circle"></i></button> -->
+</ng-template>

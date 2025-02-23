@@ -1,0 +1,11 @@
+<div style="margin-bottom: 5px;">
+    <webcam *ngIf="!webcamImage" (initError)="handleInitError($event)" #videoElement [mirrorImage]="'always'" [trigger]="triggerObservable" [imageQuality]="1" [videoOptions]="videoOptions" (imageCapture)="handleImage($event)"></webcam>
+
+    <img *ngIf="webcamImage" class="snapshot" [src]="webcamImage.imageAsDataUrl"/>
+</div>
+
+<button nbButton [status]="'info'" class="btn-block" (click)="triggerSnapshot()" *ngIf="!webcamImage">Take a Picture</button>
+<button nbButton [status]="'warning'" class="btn-block" (click)="reTake()" *ngIf="webcamImage">Take again</button>
+<button nbButton [status]="'success'" class="btn-block" (click)="accept()" *ngIf="webcamImage && !uploading">Accept</button>
+<button nbButton [status]="'success'" class="btn-block" [nbSpinner]="'primary'" (click)="accept()" *ngIf="webcamImage && uploading" nbSpinnerSize="medium" nbSpinnerStatus="primary"
+disabled>Accept</button>

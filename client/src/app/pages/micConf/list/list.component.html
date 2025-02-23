@@ -1,0 +1,24 @@
+
+<nb-card>
+    <nb-card-body>
+
+      <table class="table table-hover" id="myTable">
+        <thead align='center'>
+          <tr>
+            <th scope="col"><h5>Name</h5></th>
+            <th scope="col"><h5>File or Input</h5></th>
+            <th scope="col" *ngIf='now_user.role != "user"'><h5>Delete</h5></th>
+          </tr>
+        </thead>
+        <tr *ngFor = "let camera of cams">
+            <td scope="row"><h6 align='center' style='word-wrap: break-word;'>{{camera.name}}</h6></td>
+            <td scope="row"><h6 align='center' style='word-wrap: break-word;'>{{camera.stored_vid == 'Yes' ? 'File' : 'Input'}}</h6></td>
+            <td *ngIf='now_user.role != "user"'><button  class='btn-block' nbButton [status]="'danger'" (click)="deleteCamera(camera.id)">
+              <i class="far fa-trash-alt"></i>
+            </button></td>
+        </tr>
+        </table>
+      
+      </nb-card-body>
+    </nb-card>
+  

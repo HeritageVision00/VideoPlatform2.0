@@ -1,0 +1,97 @@
+.no-padding{
+  padding: 0px;
+}
+.onehour:hover {
+  color: blue; /* Change to your desired color */
+}
+
+.top-badges{
+  min-height: 120px;
+}
+.sidelogo{
+  right: -70%;
+  position:   fixed;
+  transition: right 1s ease-in-out;
+  //left: auto;
+}
+.sidelogo.active{
+  right: 7%;
+}
+.sidebar {
+  position: absolute;
+  
+  right: 0px;
+  width: 380px; /* Adjust the width as needed */
+  height: 18px;
+  border: none;
+  background-color: #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-left-style: none;
+  border-right-style: none;
+  transition: right 1s ease-in-out;
+  //border: 1px solid #ccc;
+}
+.sidebar.active {
+  right: -190px; /* Visible position */
+}
+.content {
+  margin-right: 0px; /* Adjust according to sidebar width and right position */
+  padding: 0px;
+}
+
+.badge-txt{
+font-size: 16px;
+font-weight: normal;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #535353;
+}
+
+.badge-reading{
+  font-size: 24px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #444444;
+  margin-bottom: 0px;
+}
+
+.graph-body {
+    min-height: 400px;
+}
+
+.less-padding{
+    padding-left: 10px; 
+    padding-right: 5px; 
+}
+.custom-span {
+  width: 40px;
+  //background-color: red;
+  //height: 30px;
+  cursor: pointer; /* Ensure the cursor is still a pointer */
+  display: inline-block; /* Ensure the width takes effect */
+  text-align: center; /* Center the text */
+}
+//   ::ng-deep .custom-table .ng2-smart-title {
+//     font-size: 120px;
+//     font-weight: bold;
+//     font-style: italic;
+// }
+::ng-deep .custom-table .ng2-smart-title, 
+::ng-deep .custom-table .ng2-smart-title a {
+  font-size: 17px !important;
+  font-weight: bold;
+  color: black;
+  //font-style: italic;
+}
+
+
+
+//   ng2-smart-table table tr th a {
+//     color: rgb(247, 247, 247) !important;
+//     }

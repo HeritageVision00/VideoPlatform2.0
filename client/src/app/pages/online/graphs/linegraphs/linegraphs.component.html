@@ -1,0 +1,5 @@
+<ul class="dhullove d-flex"   style="  margin-bottom: 15px;">
+    <li class="nav-items ml-2" style="list-style-type: none; cursor: pointer;font-size: 17px !important; color: white; font-weight: bold;" *ngFor="let tab of tabes; let i=index" (click)="settab(i)">
+        <button style="width: 150px;     font-weight: bold;" [ngClass]="activetab == i ? 'active':''" [ngStyle]="{'background-color': activetab == i ? 'black':'','color': activetab == i ? 'white':''}" > <a class="nav-link"  style="font-weight: bold;"  [ngClass]="activetab == i ? 'active':'' "  > {{tab}}</a></button>
+    </li>
+</ul>

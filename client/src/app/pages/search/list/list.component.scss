@@ -1,0 +1,84 @@
+// .container {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     height: 100%;
+//   }
+
+  nb-progress-bar {
+    flex: 1;
+  }
+
+  nb-progress-bar ~ nb-progress-bar {
+    margin-top: 1rem;
+  }
+
+  .progress-container {
+    position: relative;
+  }
+
+  .overlay {
+    transform: translate(35%, -115%);
+    z-index: 1;
+    color: var(--text-basic-color);
+    font-family: var(--layout-text-font-family);
+    font-size: var(--layout-text-font-size);
+    font-weight: var(--layout-text-font-weight);
+    line-height: var(--layout-text-line-height);
+    border-radius: 5px;
+  }
+
+  .font {
+    font-family: Poppins !important;
+}
+
+.nb-theme-default :host ::ng-deep h5 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.nb-theme-corporate :host ::ng-deep h5 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.nb-theme-dark :host ::ng-deep h5 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.nb-theme-cosmic :host ::ng-deep h5 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.nb-theme-default :host ::ng-deep h6 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.nb-theme-corporate :host ::ng-deep h6 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.nb-theme-dark :host ::ng-deep h6 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.nb-theme-cosmic :host ::ng-deep h6 {
+  font-family: Poppins !important;
+  margin-bottom: 0px;
+}
+
+.butn{ background-color: black; border: 2px solid #000000; border-radius: 10px; color: white; height: 100%; align-items: stretch; flex: 1;   display: inline-flex; /* Ensure the content inside the button is centered */
+  justify-content: center; /* Center the content horizontally */
+  align-items: center;
+  width: 100%;
+}
+
+.table th, .table td {
+  padding: 8px; /* Add padding as needed */
+  vertical-align: middle; /* Change vertical alignment to middle */
+}

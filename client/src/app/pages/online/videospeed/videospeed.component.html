@@ -1,0 +1,101 @@
+<!-- <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-per">
+          Speed
+    </nb-card-header>
+    <nb-card-body class="body-color">
+        <form action="">
+            <div class="menuspeedx">
+                <span class="mr-4 ml-2 text-center"><b>1x</b></span>
+                <span class="text-center"><b>2x</b></span>
+                <br>
+                <span class="mr-4 ml-2 text-center"><b>3x</b></span>
+                <span class="text-center"><b>4x</b></span>
+                <br>
+                <span class="mr-4 ml-2 text-center"><b>1xx</b></span>
+                <span class="text-center"><b>2xx</b></span>
+                <br>
+                <span class="mr-4 ml-2 text-center"><b>3xx</b></span>
+                <span class="text-center"><b>4xx</b></span>
+            </div>
+            <br>
+            <div class="ml-3" style="background: #535C68;   padding: 8px; border-radius: 10px;">
+                <button type="button" class="btn mr-5  btn-primary"  >Proceed</button>  
+                <button type="button" class="btn btn-primary"> Back</button>
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card> -->
+<!-- <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-per">
+      Speed
+    </nb-card-header>
+    <nb-card-body class="body-color">
+      <form [formGroup]="processForm" (ngSubmit)="onProcessVideoSubmit()">
+        <div class="menuspeedx">
+          <span class="mr-4 ml-2" id="onespeed" value="onespeed" text-center><b>1x</b></span>
+          <span class="mr-4 ml-2" id="twospeed" value="twospeed"><b>2x</b></span>
+          <br>
+          <span class="mr-4 ml-2" id="threespeed" value="threespeed" text-center><b>3x</b></span>
+          <span class="mr-4 ml-2"><b>4x</b></span>
+          <br>
+          <span class="mr-4 ml-2" id="onefastspeed" value="onefastspeed" text-center><b>1xx</b></span>
+          <span class="mr-4 ml-2"><b>2xx</b></span>
+          <br>
+          <span class="mr-4 ml-2" id="threefastspeed" value="threefastspeed" text-center><b>3xx</b></span>
+          <span class="mr-4 ml-2" id="fourspeed" value="fourspeed"><b>4xx</b></span>
+        </div>
+        <br>
+        <div class="ml-3" style="background: #535C68; padding: 8px; border-radius: 10px;">
+          <button type="submit" class="btn mr-5 btn-primary">Proceed</button>
+          <button type="button" class="btn btn-primary" (click)="onCancel()">Back</button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card> -->
+  <!-- (click)="selectSpeed('4xx')" -->
+  <!-- <span class="mr-4 ml-2" (click)="selectSpeed('1xx')" [class.selected]="processForm.get('onespeed').value === '1xx'"><b>1xx</b></span>
+  <span class="mr-4 ml-2" (click)="selectSpeed('2xx')" [class.selected]="processForm.get('onespeed').value === '2xx'"><b>2xx</b></span> -->
+  <!-- <div *ngIf="isVisible">  -->
+  <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-per">
+      Speed
+    </nb-card-header>
+    <nb-card-body class="body-color">
+      <form [formGroup]="processForm" (ngSubmit)="onProcessVideoSubmit()">
+        <div class="menuspeedx">
+          <span class="mr-4 ml-2" (click)="selectSpeed('1x')" [class.selected]="processForm.get('onespeed').value === '1x'"><b>1x</b></span>
+          <span class="mr-4 ml-2" (click)="selectSpeed('2x')" [class.selected]="processForm.get('onespeed').value === '2x'"><b>2x</b></span>
+          <br>
+          <span class="mr-4 ml-2" (click)="selectSpeed('3x')" [class.selected]="processForm.get('onespeed').value === '3x'"><b>3x</b></span>
+          <span class="mr-4 ml-2" (click)="selectSpeed('4x')" [class.selected]="processForm.get('onespeed').value === '4x'"><b>4x</b></span>
+          <br>
+          <span class="mr-4 ml-2" (click)="selectSpeed('1xx')" [class.selected]="processForm.get('onespeed').value === '1xx'"><b>1xx</b></span>
+          <span class="mr-4 ml-2" (click)="selectSpeed('2xx')" [class.selected]="processForm.get('onespeed').value === '2xx'"><b>2xx</b></span>
+          <br>
+          <span class="mr-4 ml-2" (click)="selectSpeed('3xx')" [class.selected]="processForm.get('onespeed').value === '3xx'"><b>3xx</b></span>
+          <span class="mr-4 ml-2" (click)="selectSpeed('4xx')" [class.selected]="processForm.get('onespeed').value === '4xx'"><b>4xx</b></span>
+        </div>
+        <br>
+        <!-- <div class="ml-3" style="background: #535C68; padding: 8px; border-radius: 10px;"> -->
+          <!-- <button type="submit" class="btn mr-5 btn-primary" (click)="onProcessVideoSubmit()" [disabled]="isLoading">
+            <span class="button-content" [class.hidden]="isLoading">Process</span>
+             
+            </button>
+            <nb-spinner *ngIf="isLoading" status="primary" class="spinner"></nb-spinner> -->
+            <!-- <button type="submit" class="btn mr-5 btn-primary"  >
+             Process 
+              
+            </button>
+             
+          <button type="button" class="btn btn-primary" (click)="onCancel()">Back</button> -->
+          <div>
+            <button type="submit" class="btn btn-primary">Proceed</button>  
+            &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="onCancel()"> Back</button>
+        <!-- </div> -->
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+<!-- </div> -->

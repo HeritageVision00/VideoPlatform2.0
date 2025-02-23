@@ -1,0 +1,31 @@
+.toggle-switch {
+    width: 80px;             /* Adjusted width for proportion */
+    height: 40px;            /* New height */
+    background-color: #ccc;
+    border-radius: 40px;     /* Match the height for a fully rounded appearance */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Style when active (slider "on") */
+  .toggle-switch.active {
+    background-color: #1397ff;
+  }
+  
+  /* Style for the slider thumb */
+  .toggle-thumb {
+    width: 36px;             /* Thumb slightly smaller than track height */
+    height: 36px;            /* Matching width and height for a circular thumb */
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;                /* Center the thumb vertically within the track */
+    left: 2px;               /* Initial left position */
+    transition: left 0.3s;
+  }
+  
+  /* Position thumb on the right when active */
+  .toggle-switch.active .toggle-thumb {
+    left: 42px;              /* Move the thumb to the right end */
+  }

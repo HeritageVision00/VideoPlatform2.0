@@ -1,0 +1,19 @@
+<nb-card style="max-height: 80vh;">
+    <nb-card-header>
+      <nb-checkbox [status]="'primary'" [(ngModel)]='allAct' (ngModelChange)='changeAll()'>Select All</nb-checkbox>
+    </nb-card-header>
+    <nb-list>
+      <nb-list-item *ngFor='let alg of algos; let i = index'>
+        <nb-checkbox [status]="'primary'" [(ngModel)]='alg.available'>{{alg.name}}</nb-checkbox>
+      </nb-list-item>
+    </nb-list>
+
+    <button
+    (click) = 'save()'
+    nbButton
+    class="btn-block"
+    status="info"
+    >
+    Save 
+  </button>
+  </nb-card>

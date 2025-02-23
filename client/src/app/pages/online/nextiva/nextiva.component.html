@@ -1,0 +1,39 @@
+<nb-card>  
+    <nb-card-body>
+        <button nbButton class="btn-block" [status]="'primary'" [nbSpinner]="true" nbSpinnerSize="giant" nbSpinnerStatus="primary"  *ngIf="loadingCams" disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <nb-select fullWidth [status]='"primary"' *ngIf="!loadingCams" [(ngModel)]="camSelected" id="vms">
+            <nb-option value="" disabled>Choose camera:</nb-option>
+            <nb-option *ngFor="let cam of cameras;" [value]='cam' >{{cam.Name}}</nb-option>
+          </nb-select>
+          <div class="dropdown-divider"></div>
+          <div class="row">
+            <div class="col-md-6">
+                <input nbInput placeholder="Pick starting date" class="btn-block" [nbDatepicker]="dateTimePickerStart" (ngModelChange)="setMin($event)" [(ngModel)]="rec.start">
+                <nb-date-timepicker
+                [max]="max"
+                    withSeconds
+                    #dateTimePickerStart></nb-date-timepicker>
+            </div>
+            <div class="col-md-6">
+                <input nbInput placeholder="Pick ending date" class="btn-block" [nbDatepicker]="dateTimePickerEnd" (ngModelChange)="setMax($event)" [(ngModel)]="rec.end">
+                <nb-date-timepicker
+                [max]="max2"
+                [min]="min"
+                    withSeconds
+                    #dateTimePickerEnd></nb-date-timepicker>
+            </div>
+          </div>
+        <div class="dropdown-divider"></div>
+        <button
+          [status]="'success'"
+          nbButton
+          class="btn-block"
+          (click)="getRecording()"
+          *ngIf="!loading"
+          [disabled] = "camSelected == ''"
+        >
+          Request recording
+        </button>
+        <button nbButton class="btn-block" [status]="'primary'" [nbSpinner]="true" nbSpinnerSize="giant" nbSpinnerStatus="primary"  *ngIf="loading" [disabled]="loading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </nb-card-body>
+</nb-card> 

@@ -1,0 +1,19 @@
+<input nbInput placeholder="Pick starting date" class="btn-block" [nbDatepicker]="dateTimePickerStart" (ngModelChange)="setMin($event)" [(ngModel)]="rec.start">
+<nb-date-timepicker
+[max]="max"
+
+    withSeconds
+    #dateTimePickerStart></nb-date-timepicker>
+<br>
+<input nbInput placeholder="Pick ending date" class="btn-block" [nbDatepicker]="dateTimePickerEnd" (ngModelChange)="setMax($event)" [(ngModel)]="rec.end">
+<nb-date-timepicker
+[max]="max2"
+[min]="min"
+    withSeconds
+    #dateTimePickerEnd></nb-date-timepicker>
+<br>
+<button class='btn-block' nbButton [status]="'success'" (click)="send()" *ngIf="is_saving == false">Request</button>
+<button class='btn-block' nbButton [status]="'success'" [nbSpinner]="true" nbSpinnerSize="giant" nbSpinnerStatus="primary" [disabled]="is_saving" *ngIf="is_saving == true">&nbsp;</button>
+<div *ngIf="error !== null" class="text-danger">
+    <small>{{ error }}</small>
+</div>

@@ -1,0 +1,199 @@
+<div class="container p-4">
+  <div class="displayTable">
+    <div class="displayTableCell">
+      <div class="col-md-6 offset-3">
+        <nb-card>
+          <nb-card-header>
+            <div align="center">
+              <a href="#"><img src="../../../../assets/favicon1.png" /></a>&nbsp;
+              <span>GRAYMATICS</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <div class="mt-3 mb-3">
+              <div class="pl-5 pr-5">
+                <button class="btn-block" [status]="'success'" nbButton (click)="openModal(uploadVideoTemplate)">
+                  Upload Video
+                </button>
+                <button class="btn-block" [status]="'success'" nbButton (click)="openModal(processVideoTemplate)">
+                  Process Video
+                </button>
+                <button class="btn-block" [status]="'warning'" nbButton (click)="openVideoModal(playVideoTemplate)">
+                  Open Video
+                </button>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update your HTML template -->
+<ng-template #playVideoTemplate>
+  <div>
+    <nb-card>
+      <nb-card-header>
+        <h6>Play Video</h6>
+      </nb-card-header>
+      <nb-card-body>
+
+       
+        <div *ngIf="!selectedVideoUrl">
+          <label for="videoSelect">Select a video:</label>
+          <select id="videoSelect" [(ngModel)]="selectedVideo" (change)="onSelectVideo(selectedVideo)">
+            <option *ngFor="let video of videoList" [ngValue]="video">{{ video.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="selectedVideoUrl">
+          <p>Selected Video URL: {{ selectedVideoUrl }}</p>
+          <video width="650" controls>
+            <source [src]="selectedVideoUrl" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+
+
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button class="btn-block" nbButton (click)="closeModal()">
+          CLOSE
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</ng-template>
+
+<ng-template #processVideoTemplate>
+  <div class="pb-5">
+    <nb-card class="pb-5">
+      <nb-card-header>
+
+        <h6>Process Video</h6>
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="processForm" (ngSubmit)="onProcessVideoSubmit()">
+
+          <div class="option-container">
+            <label for="selectedOption"><b>Select an option: </b></label> &nbsp;&nbsp;
+            <select id="selectedOption" formControlName="selectedOption" (change)="onOptionSelected()">
+              <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+            </select>
+
+            <div class="refresh-button-container-1">
+              <b> <nb-icon icon="refresh" (click)="refreshPage()" class="refresh-icon"></nb-icon></b>
+            </div>
+          </div>
+
+          <div>
+
+            <span><b>Start Time: </b></span>
+            <input id="startTime" nbInput type="text" [nbTimepicker]="startTimepicker" formControlName="startTime" />
+            <nb-timepicker #startTimepicker withSeconds></nb-timepicker>
+            <button type="button" class="btn-sm" [status]="'primary'" nbButton (click)="clearStartOrEnd('startTime')">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div style="display: block" class="pt-2">
+            <span><b>End Time: </b></span>
+            <input id="endTime" nbInput type="text" [nbTimepicker]="endTimepicker" formControlName="endTime" />
+            <nb-timepicker #endTimepicker withSeconds></nb-timepicker>
+            <button type="button" class="btn-sm" [status]="'primary'" nbButton (click)="clearStartOrEnd('endTime')">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div style="display: block" class="pt-2">
+            <span><b>Duration(Minutes): </b></span>
+            <input nbInput type="number" placeholder="Enter Duration" formControlName="duration" />
+            <p *ngIf="
+                              !processForm.controls.duration.valid
+                            " class="error text-danger mb-1">
+              <span>
+                Duration value must be atleast 3 minutes
+              </span>
+            </p>
+            <p *ngIf="processForm.errors?.['invalidStartTimeEndTime'] && (processForm.touched || processForm.dirty)"
+              class="error text-danger mb-1">
+              <span>
+                End time must be greater than start time
+              </span>
+            </p>
+
+          </div>
+          <div class="pt-2">
+
+            <button class="btn-block" [status]="'primary'" nbButton type="submit" [disabled]="isLoading"
+              (click)="onProcessVideoSubmit()">
+              <span class="button-content" [class.hidden]="isLoading">Process</span>
+              <nb-spinner *ngIf="isLoading" status="primary" class="spinner"></nb-spinner>
+            </button>
+
+            <div class="message-area">
+              <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+              <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+            </div>
+
+          </div>
+        </form>
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button class="btn-block" nbButton (click)="closeModal()">
+          CLOSE
+        </button></nb-card-footer>
+    </nb-card>
+  </div>
+</ng-template>
+
+<ng-template #uploadVideoTemplate>
+  <div class="pb-5">
+    <nb-card class="pb-5">
+      <nb-card-header>
+        <h6>Upload Video </h6>
+      </nb-card-header>
+      <nb-card-body>
+        <div>
+          <div class="button-row" nbLayout nbLayout="row" nbLayoutAlign="start center">
+            <input nbInput type="file" (change)="change()" [uploader]="uploader" ng2FileSelect #fileInput
+              class="upload-input" id="exampleInputFile" placeholder="Upload Video" aria-describedby="fileHelp"
+              name="file" />
+
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <div class="button-container" nbLayout="row" nbLayoutFill>
+           
+            <button nbButton [status]="'primary'" class="full-width" (click)="uploadVideo()" >
+               <!-- [disabled]="uploadInProgress"  -->
+               <!-- [disabled]="uploadInProgress || !fileName" -->
+              <ng-container *ngIf="!uploadInProgress; else spinnerTemplate">
+                <b>Upload Video</b>
+              </ng-container>
+              <ng-template #spinnerTemplate>
+                <div class="spinner-container">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <span class="uploading-text">Uploading...</span>
+                </div>
+              </ng-template>
+            </button>
+            <div id="errorMessage" class="error-message"></div>
+
+            <!-- <p *ngIf="isVideoBeingUploaded" [ngClass]="{'blue-text': true}">Video is being uploaded, please wait.......
+            </p> -->
+          </div>
+        </div>
+
+       
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button class="btn-block" nbButton (click)="closeModal()">
+          CLOSE
+        </button></nb-card-footer>
+    </nb-card>
+  </div>
+</ng-template>

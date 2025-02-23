@@ -1,0 +1,37 @@
+<div class="row">
+    <div class='col-md-12'>
+        <nb-card>  
+            <nb-card-body>
+                <div class="col-md-4">
+                    <label for="theme" class="label font">Theme:</label>
+                    <nb-select fullWidth placeholder="Choose a Theme" id="theme" [(ngModel)]="themeNow.value" (selectedChange)="changeTheme($event)">
+                        <nb-option value="Choose a Theme" disabled>Choose a Theme</nb-option>
+                        <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+                    </nb-select>
+                    <!-- <div class="dropdown-divider"></div>
+                    <button
+                    [status]="'success'"
+                    nbButton
+                    class="btn-block"
+                  >
+                    Integrate VMS
+                  </button>
+                  <button
+                  [status]="'success'"
+                  nbButton
+                  class="btn-block"
+                >
+                  Integrate APP
+                </button>
+                <button
+                [status]="'success'"
+                nbButton
+                class="btn-block"
+              >
+                Integrate DRONE
+              </button> -->
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

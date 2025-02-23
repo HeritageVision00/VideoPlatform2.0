@@ -1,0 +1,43 @@
+<p>aaaaaa</p>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12" [hidden]="camState" *ngFor="let camera of cams">
+        <nb-card size="tiny" class="health-card" *ngIf="camera.health_status" (click)="playBtn(camera)">
+            <nb-card-header>{{camera.name}}</nb-card-header>
+            <img style="width: 140px;margin: auto;" src="../../../../assets/images/Play.gif">
+        </nb-card>
+        <nb-card size="tiny" class="health-card" *ngIf="!camera.health_status">
+            <nb-card-header>{{camera.name}}</nb-card-header>
+            <img style="width: 140px;margin: auto;" src="../../../../assets/images/stopped.png">
+        </nb-card>
+        
+    </div>
+    <div class="w-100" [hidden]="!camState">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="card health-card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <h6 class="text-center text-success"> live feed</h6>
+                             </div>
+                             <div class="col-4">
+                               <h6 class="text-center">Camera Name - {{camName}}</h6>
+                             </div>
+                             <div class="col-4" (click)="destroyStream()">
+                                 <h6 class="text-center text-danger"> <span>x</span> Cancel</h6>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <canvas class="video-block" #canavs></canvas>
+            </div>
+        </div>
+    </div>
+</div>

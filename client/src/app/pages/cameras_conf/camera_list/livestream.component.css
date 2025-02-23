@@ -1,0 +1,50 @@
+.font {
+    font-family: Poppins !important;
+}
+
+.nb-theme-default :host ::ng-deep h5 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+}
+
+.nb-theme-corporate :host ::ng-deep h5 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+}
+
+.nb-theme-dark :host ::ng-deep h5 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+}
+
+.nb-theme-cosmic :host ::ng-deep h5 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+}
+
+.nb-theme-default :host ::ng-deep h6 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+  }
+  
+  .nb-theme-corporate :host ::ng-deep h6 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+  }
+  
+  .nb-theme-dark :host ::ng-deep h6 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+  }
+  
+  .nb-theme-cosmic :host ::ng-deep h6 {
+    font-family: Poppins !important;
+    margin-bottom: 0px;
+  }
+
+  .butn{ background-color: black; border: 2px solid #000000; border-radius: 10px; color: white; height: 100%; align-items: stretch;}
+
+  .table th, .table td {
+    padding: 8px; /* Add padding as needed */
+    vertical-align: middle; /* Change vertical alignment to middle */
+  }

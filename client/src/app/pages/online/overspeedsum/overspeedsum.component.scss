@@ -1,0 +1,57 @@
+.custom-dialog-wrapper {
+    position: absolute;
+    top: 20%;
+    right: 46%;
+    width:   300px;
+    height: auto;
+    padding: 4px;
+    margin-top: 5px;
+    border-radius: 10px;
+    /* Add any other styles as needed */
+  }
+  .head-car{
+    color: black;
+    border-radius: 10px;
+    padding: 0px 2px 2px 2px;
+    text-align: center;
+    background: #9A9DA1;
+  }
+  .body{
+    padding-bottom: 10px;
+  }
+  .btn{
+    border-radius: 8px;
+  }
+  .menuspeedx {
+    background: #534e4e;
+    padding: 5px;
+    margin: 2px 4px 30px 3px;
+    border-radius: 7px;
+}
+
+.menuspeedx span {
+    background: yellow;
+    margin: 4px;
+    padding: 5px 15px;
+    color: black;
+    border-radius: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.menuspeedx span b {
+    width: 50px;
+    display: inline-block;
+}
+.button-content {
+  display: block;
+}
+.spinner {
+  position: absolute;
+  bottom: 20%;
+}
+
+
+button {
+  position: relative;
+}

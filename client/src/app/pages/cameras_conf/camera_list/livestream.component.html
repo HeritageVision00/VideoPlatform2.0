@@ -1,0 +1,52 @@
+
+  <nb-card class="font">
+    <nb-card-header>
+      <div class='col-md-6 offset-md-3 font'>
+        <!-- <h4 align="left">
+          {{ dateMessage }}
+        </h4> -->
+        <label *ngIf='now_user.role != "user"' align='right' for="noth" class="label font">Remaining Cameras:&nbsp;</label>
+        <strong class="font" *ngIf='now_user.role != "user"'>{{remaining.cameras}}</strong>
+        </div>
+    </nb-card-header>
+  
+    <nb-card-body>
+
+      <table class="table table-hover font" id="myTable">
+        <thead align='center'>
+          <tr class="font">
+            <th scope="col" class="font"><h5 class="font">Name</h5></th>
+            <th scope="col" class="font"><h5 class="font">Play</h5></th>
+            <th scope="col" class="font"  *ngIf='now_user.role != "user"'><h5 class="font">Edit</h5></th>
+            <th scope="col" class="font"  *ngIf='now_user.role != "user"'><h5 class="font"><i class="far fa-dot-circle"></i>&nbsp;Algorithms</h5></th>
+            <th scope="col" class="font" *ngIf='heatmap == true'><h5 class="font"><i class="far fa-map"></i> &nbsp;Heatmap</h5></th>
+            <th scope="col" class="font" *ngIf='vms !== null'><h5 class="font"><i class="far fa-map"></i> &nbsp;Recordings</h5></th>
+            <th scope="col" class="font" *ngIf='now_user.role != "user"'><h5 class="font">Delete</h5></th>
+          </tr>
+        </thead>
+        <tr *ngFor = "let camera of cams | sortAlphabet">
+            <td class="font" scope="row"><h6 class="font" align='center' style='word-wrap: break-word;'>{{camera.name}}</h6></td>
+            <td><button [routerLink]="['/pages/cameras/live/', camera.id]" class='btn-block font butn'>
+                <i class="fas fa-play"></i>
+            </button></td>
+            <td class="font" *ngIf='now_user.role != "user"'><button [routerLink]="['/pages/cameras/edit', camera.id]" class='btn-block font' nbButton [status]="'info'">
+            Edit
+            </button></td>
+            <td class="font" *ngIf='now_user.role != "user"'><button [routerLink]="['/pages/cameras/algorithms', camera.id]" class='btn-block font' nbButton [status]="'info'">
+              Algorithms
+            </button></td>
+              <td class="font" *ngIf='heatmap == true'><button [routerLink]="['/pages/cameras/heatmap', camera.id]" class='btn-block font' nbButton [status]="'info'" [disabled]= 'camera.hm == undefined'>
+                Heatmap
+              </button></td>
+              <td class="font" *ngIf='vms !== null'><button class='btn-block font' (click)="open(camera)" nbButton [status]="'warning'">
+                Get Recording
+              </button></td>
+            <td class="font" *ngIf='now_user.role != "user"'><button  class='btn-block font' nbButton [status]="'danger'" (click)="deleteCamera(camera.id)">
+              <i class="far fa-trash-alt"></i>
+            </button></td>
+        </tr>
+        </table>
+      
+      </nb-card-body>
+    </nb-card>
+  

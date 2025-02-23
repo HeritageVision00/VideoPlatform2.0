@@ -1,0 +1,222 @@
+ 
+<head>
+    <script src="https://kit.fontawesome.com/782a82b111.js" crossorigin="anonymous"></script>
+</head>
+<nb-card *ngIf="loading">
+    <button nbButton [status]="'primary'" [nbSpinner]="true" nbSpinnerSize="giant" nbSpinnerStatus="primary"
+        [disabled]="loading">Loading&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+</nb-card>
+<!-- <div class="  d-flex flex-row justify-content-center"> -->
+    <div style="text-align: center; max-width:auto; left: 0px; " *ngIf="!loading">
+        <div style="max-width: 100%;  margin: 0 auto; padding: 5px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+
+            <h1>Video Summarization</h1>
+            <!-- For Summarized Video padding-bottom: 45px; -->
+            <div class="row">
+                <div class="col-md-3" *ngIf="textSummary !== ''" style="text-align: left;">
+                    <h3>Alerts summary</h3>
+                    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; background-color: #fff; max-height: 25rem; overflow-y: auto;">
+                        <p>{{ textSummary }}</p>
+                    </div>
+                    <nb-card style="height: '30rem'" *ngIf="receivedDatafromsummer">
+                        <nb-card-header>
+                         Filtering results
+                        </nb-card-header>
+                    <table class="table  " id="myTable">
+                        <thead align='center'>
+                            <th scope="col">
+                                <b> Name</b>
+                            </th>
+                            <th scope="col">
+                                <b>Time</b>
+                            </th>  
+                             
+                            <th scope="col">
+                                <i class="close-outline"></i>  <b>Play </b>
+                            </th>
+                        </thead>
+                        <tr  *ngFor='let list of receivedDatafromsummer; let i = index'>
+                            <td scope="row" ><p align='center' style='word-wrap: break-word;'>{{list.type}}</p></td>
+                            <td scope="row"><p align='center' style='word-wrap: break-word;'>{{list.time}}</p></td> 
+                            <td><button class='btn btn-warning btn-block bg-color' (click)="openWindowForm(list)"><i class="fas fa-play"></i></button></td>
+
+                        </tr>
+                    </table>
+                </nb-card>
+                    <!-- <nb-card style="height: '30rem'" *ngIf="receivedDatafromsummer !== null">
+                        <nb-card-header>
+                         Filtering results
+                        </nb-card-header>
+                        <nb-list>
+                          <nb-list-item *ngFor='let list of receivedDatafromsummer; let i = index'>
+                             {{list.type}} at <br> {{list.time}} <button style="width: 60px; margin-left: 50px;" class='btn btn-warning btn-block bg-color' (click)="openWindowForm(list)"><i class="fas fa-play"></i></button>
+                          </nb-list-item>
+                        </nb-list>
+                      </nb-card> -->
+                </div>
+
+                <hr style="height: 100vh; left: 30%; width: 1px;background: rgb(17, 16, 16); color: rgb(20, 20, 20); border: 1px solid;">
+                <div class="col-md-8">
+                    <div *ngIf="videoLink !== null" (mouseenter)="cursorOnVideoScreen['stitched'] = true"
+                        (mouseleave)="cursorOnVideoScreen['stitched'] = false">
+                        <h3 style="font-size: 18px;">Highlights (Stitched video)</h3>
+                        <nb-card id="video-container">
+                            <vg-player>
+                                <video #media [vgMedia]="media" id="stitchedVid" preload="auto" [playbackRate]="selectedSpeedone['stitched']"
+                                    controls autoplay>
+                                    <source [src]="videoLink" type="video/mp4">
+                                </video>
+                                <div *ngIf="cursorOnVideoScreen['stitched']" style="padding-top: 10px;">
+                                    <p style="border: none;" (click)="restartVideo('stitched')" class="reset-button"><svg
+                                            xmlns="http://www.w3.org/2000/svg" height="28" width="28" viewBox="0 0 512 512">
+                                            <path
+                                                d="M48.5 224H40c-13.3 0-24-10.7-24-24V72c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2L98.6 96.6c87.6-86.5 228.7-86.2 315.8 1c87.5 87.5 87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3c-62.2-62.2-162.7-62.5-225.3-1L185 183c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8H48.5z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                    <p (click)="skipTimeb(media, -10, 'stitched')" style="background-color: transparent;" id="back-button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="28" viewBox="0 0 512 512">
+                                            <path
+                                                d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg>
+                                    </p>
+                                    <p class="bton4x" (click)="adjustSpeedone('l', 'stitched')"><svg xmlns="http://www.w3.org/2000/svg"
+                                            height="28" width="28" viewBox="0 0 448 512">
+                                            <path
+                                                d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                    <p class="textX">{{ selectedSpeedone['stitched'] }}x</p>
+                                    <p class="bton4xt" (click)="adjustSpeedone('h', 'stitched')"><svg xmlns="http://www.w3.org/2000/svg"
+                                            height="28" width="28" viewBox="0 0 448 512">
+                                            <path
+                                                d="M246.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 109.3 361.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160zm160 352l-160-160c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 301.3 361.4 438.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                    <p (click)="skipTimef(media, 10, 'stitched')" class="forward-button"><svg xmlns="http://www.w3.org/2000/svg"
+                                            height="28" width="28" viewBox="0 0 512 512">
+                                            <path
+                                                d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"
+                                                style="fill: #373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                </div>
+                            </vg-player>
+                            <p class="alert-text" *ngIf="forwardClicked['stitched']">Forward 10sec</p>
+                            <p class="alert-text" *ngIf="backwardClicked['stitched']">Backward 10sec</p>
+                            <p class="alert-text" style="font-size: 30px;" *ngIf="Multiplayer['stitched']">{{ selectedSpeedone['stitched'] }}x
+                            </p>
+                        </nb-card>
+                        <div *ngIf="videoLinkOverlay !== null" (mouseenter)="cursorOnVideoScreen['overlay'] = true"
+                        (mouseleave)="cursorOnVideoScreen['overlay'] = false">
+                        <h3 style="font-size: 18px;">Overlay video</h3>
+                        <nb-card id="video-container">
+                            <vg-player>
+                                <video #media [vgMedia]="media" id="vidOverlay" preload="auto" [playbackRate]="selectedSpeedone['overlay']"
+                                    controls autoplay>
+                                    <source [src]="videoLinkOverlay" type="video/mp4">
+                                </video>
+                                <div *ngIf="cursorOnVideoScreen['overlay']" style="padding-top: 10px;">
+                                    <p style="border: none;" (click)="restartVideo('overlay')" class="reset-button"><svg
+                                            xmlns="http://www.w3.org/2000/svg" height="28" width="28" viewBox="0 0 512 512">
+                                            <path
+                                                d="M48.5 224H40c-13.3 0-24-10.7-24-24V72c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2L98.6 96.6c87.6-86.5 228.7-86.2 315.8 1c87.5 87.5 87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3c-62.2-62.2-162.7-62.5-225.3-1L185 183c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8H48.5z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                    <p (click)="skipTimeb(media, -10, 'overlay')" style="background-color: transparent;" id="back-button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="28" viewBox="0 0 512 512">
+                                            <path
+                                                d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg>
+                                    </p>
+                                    <p class="bton4x" (click)="adjustSpeedone('l', 'overlay')"><svg xmlns="http://www.w3.org/2000/svg"
+                                            height="28" width="28" viewBox="0 0 448 512">
+                                            <path
+                                                d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                    <p class="textX">{{ selectedSpeedone['overlay'] }}x</p>
+                                    <p class="bton4xt" (click)="adjustSpeedone('h', 'overlay')"><svg xmlns="http://www.w3.org/2000/svg"
+                                            height="28" width="28" viewBox="0 0 448 512">
+                                            <path
+                                                d="M246.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 109.3 361.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160zm160 352l-160-160c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 301.3 361.4 438.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z"
+                                                style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                    <p (click)="skipTimef(media, 10, 'overlay')" class="forward-button"><svg xmlns="http://www.w3.org/2000/svg"
+                                            height="28" width="28" viewBox="0 0 512 512">
+                                            <path
+                                                d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"
+                                                style="fill: #373E19; filter: brightness(980%) contrast(90%);" />
+                                        </svg></p>
+                                </div>
+                            </vg-player>
+                            <p class="alert-text" *ngIf="forwardClicked['overlay']">Forward 10sec</p>
+                            <p class="alert-text" *ngIf="backwardClicked['overlay']">Backward 10sec</p>
+                            <p class="alert-text" style="font-size: 30px;" *ngIf="Multiplayer['overlay']">{{ selectedSpeedone['overlay'] }}x
+                            </p>
+                        </nb-card>
+                    </div>
+                    </div>
+                    <div>
+                        <h1 style="margin-top: 10px;">Summarization result</h1>
+                        <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; background-color: #fff;">
+                            <button *ngif="gptText === null" nbButton [status]="'primary'" [nbSpinner]="true" nbSpinnerSize="giant" nbSpinnerStatus="primary" [disabled]="true">Loading&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                            <p style="text-align: justify;" *ngIf="gptText !== null">{{gptText}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            style="max-width: 100%;  margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+            <div *ngIf="videoLink !== null" (mouseenter)="cursorOnVideoScreen['original'] = true"
+                (mouseleave)="cursorOnVideoScreen['original'] = false">
+                <h3 style="font-size: 18px;">Original video:</h3>
+                <nb-card id="video-container">
+                    <vg-player>
+                        <video #media [vgMedia]="media" id="originalVid" preload="auto"
+                            [playbackRate]="selectedSpeed['original']" controls autoplay>
+                            <source [src]="videoLink2" type="video/mp4">
+                        </video>
+                        <div *ngIf="cursorOnVideoScreen['original']" style="padding-top: 10px;">
+                            <p style="border: none;" (click)="restartVideotwo('original')" class="reset-button"><svg
+                                    xmlns="http://www.w3.org/2000/svg" height="28" width="28" viewBox="0 0 512 512">
+                                    <path
+                                        d="M48.5 224H40c-13.3 0-24-10.7-24-24V72c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2L98.6 96.6c87.6-86.5 228.7-86.2 315.8 1c87.5 87.5 87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3c-62.2-62.2-162.7-62.5-225.3-1L185 183c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8H48.5z"
+                                        style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                </svg></p>
+                            <p (click)="skipTimetwob(media, -10, 'original')" style="background-color: transparent;"
+                                id="back-button"><svg xmlns="http://www.w3.org/2000/svg" height="28" width="28"
+                                    viewBox="0 0 512 512">
+                                    <path
+                                        d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z"
+                                        style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                </svg></p>
+                            <p class="bton4x" (click)="adjustSpeed('-', 'original')"><svg xmlns="http://www.w3.org/2000/svg"
+                                    height="28" width="28" viewBox="0 0 448 512">
+                                    <path
+                                        d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"
+                                        style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                </svg></p>
+                            <p class="textX">{{ selectedSpeed['original'] }}x</p>
+                            <p class="bton4xt" (click)="adjustSpeed('+', 'original')"><svg xmlns="http://www.w3.org/2000/svg"
+                                    height="28" width="28" viewBox="0 0 448 512">
+                                    <path
+                                        d="M246.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 109.3 361.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160zm160 352l-160-160c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 301.3 361.4 438.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z"
+                                        style="fill:#373E19; filter: brightness(980%) contrast(90%);" />
+                                </svg></p>
+                            <p (click)="skipTimetwof(media, 10, 'original')" class="forward-button"><svg
+                                    xmlns="http://www.w3.org/2000/svg" height="28" width="28" viewBox="0 0 512 512">
+                                    <path
+                                        d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z"
+                                        style="fill: #373E19; filter: brightness(980%) contrast(90%);" />
+                                </svg></p>
+                        </div>
+                    </vg-player>
+                    <p class="alert-text" *ngIf="forwardClickedtwo['original']">Forward 10sec</p>
+                    <p class="alert-text" *ngIf="backwardClickedtwo['original']">Backward 10sec</p>
+                    <p class="alert-text" style="font-size: 30px;" *ngIf="Multiplayer['original']">{{ selectedSpeed['original'] }}x </p>
+                </nb-card>
+            </div>
+        </div>

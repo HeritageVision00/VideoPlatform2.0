@@ -1,0 +1,81 @@
+<!-- <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-per">
+        Person Attributes
+    </nb-card-header>
+    <nb-card-body class="body-color">
+        <form action="">
+            <div class="row">
+                <div class="col-12 " id="gender">
+                    <input type="radio" formControlName="Male" id="Male" checked name="vehicleClass" value="Male">
+                    <label for="Male">Male</label> &nbsp; &nbsp;
+                    <input type="radio" formControlName="Female" id="Female" name="vehicleClass" value="Female">
+                    <label for="Female">Female</label> &nbsp; &nbsp;
+                    <input type="radio" formControlName="Trangender" id="Trangender" name="vehicleClass"
+                        value="Trangender">
+                    <label for="Trangender">Trangender</label>
+                </div>
+
+ 
+                <br>
+                <p class="skin">Skin &nbsp; &nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <nb-icon icon="arrow-ios-downward-outline" class="iicon"> </nb-icon>
+                </p>
+                <div class="fair" id="menfair">
+                    <input type="radio" name="gender" id="Fair" value="Fair" checked />
+                    <label for="Fair">Fair</label>
+                    <input type="radio" name="gender" id="Black" value="Black" class="ml-5" />
+                    <label for="Black"> Black</label>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary">Proceed</button> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                <button type="button" class="btn btn-primary"> Back</button>
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card> -->
+ <!-- <span class="p1"><b>Female</b></span> -->
+                <!-- <span class="p1"><b>Trangender</b></span> (click)="selectgender('Transgender')"-->
+<nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-per">
+        Person Attributes
+    </nb-card-header>
+    <nb-card-body class="body-color">
+        <form [formGroup]="processForm" (ngSubmit)="onProcessVideoSubmit()">
+            <div class="row">
+                <div class="col-12 body" id="gender">
+                    <input type="radio" formControlName="gender" id="Male"   name="gender"
+                        value="Male">
+                    <label for="Male">Male</label> &nbsp; &nbsp;
+                    <input type="radio" formControlName="gender" id="Female"  
+                        name="gender" value="Female">
+                    <label for="Female">Female</label> &nbsp; &nbsp;
+                    <input type="radio" formControlName="Transgender" id="Transgender"
+                          name="gender" value="Transgender">
+                    <label for="Transgender">Transgender</label>
+                </div>
+                <br>
+                <p class="skin">Skin &nbsp; &nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <nb-icon icon="arrow-ios-downward-outline" class="iicon"> </nb-icon>
+                </p>
+                <div class="fair" id="menfair">
+                    <input type="radio" formControlName="Fair" id="Fair"   name="menfair"
+                        value="Fair" checked />
+                    <label for="Fair">Fair</label>
+                    <input type="radio" formControlName="Fair" id="Black"  
+                        name="menfair" value="Black" class="ml-5" />
+                    <label for="Black"> Black</label>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Proceed</button> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" (click)="onCancel()"> Back</button>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

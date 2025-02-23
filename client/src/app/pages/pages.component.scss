@@ -1,0 +1,58 @@
+@import '../@theme/styles/themes';
+
+@include nb-install-component() {
+  ::ng-deep router-outlet + * {
+    display: block;
+    animation: fade 1s;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+body {
+  font-family: 'Poppins';
+}
+
+ngx-center{
+  height: 100% !important;
+}
+.custom-window-class{
+  right: 20%;
+  width: 20px;
+  height: 10px;
+  
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../assets/fonts/Poppins-Regular.ttf');
+}
+
+ng2-smart-table {
+  font-family: 'Poppins';
+}
+
+ng2-smart-table .ng2-smart-actions, ng2-smart-table .ng2-smart-filters {
+  font-size: 14px;
+  color: #333;
+}
+
+.table-dark {
+  color: #ffffff;
+}
+
+:host ::ng-deep nb-menu .menu-group, :host ::ng-deep nb-menu .menu-item a {
+  font-family: 'Poppins';
+}
+
+:host ::ng-deep nb-menu .menu-item a {
+  font-family: 'Poppins';
+}

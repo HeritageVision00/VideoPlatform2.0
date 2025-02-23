@@ -1,0 +1,266 @@
+<nb-card>
+    <nb-card-header>
+        <h3 align="center">Incident Report</h3>
+    </nb-card-header>
+</nb-card>
+
+<nb-card>
+    <nb-card-body *ngIf="!view">
+        <div class="video-container" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListLock]="true">
+            <div class="video-card" *ngFor="let video of videos; let i = index; trackBy: trackByFn" cdkDrag>
+                <nb-card style="cursor: pointer;">
+                    <nb-card-header>
+                        <p>{{i}}) {{ video.name }}</p>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <video width="100%" height="auto" controls>
+                            <source [src]="video.displayPath" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="dropdown-divider"></div>
+                        <textarea 
+                        placeholder="Enter comment (max 64 characters)" 
+                        [(ngModel)]="video.description" 
+                        maxlength="64" 
+                        class="form-control" 
+                        style="height: 5vw; width: 100%; resize: none;"></textarea>
+                        <div class="dropdown-divider"></div>
+                        <nb-select fullWidth [(ngModel)]="video.event" placeholder="Assign Sequence">
+                          <nb-option value="" disabled>Assign Sequence:</nb-option>
+                          <nb-option value="BE">Before</nb-option>
+                          <nb-option value="DU">During</nb-option>
+                          <nb-option value="AF">After</nb-option>
+                        </nb-select>
+                        <div class="dropdown-divider"></div>
+                        <nb-radio-group [(ngModel)]='video.type' [ngModelOptions]="{standalone: true}" [name]="'videoType' + video.id" class="radio-group">
+                          <nb-radio
+                            [value]="'CCTV'">
+                            CCTV
+                          </nb-radio>
+                          <nb-radio
+                            [value]="'Mobile'">
+                            Mobile
+                          </nb-radio>
+                        </nb-radio-group>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <textarea 
+                placeholder="Enter location (max 64 characters)" 
+                [(ngModel)]="location" 
+                maxlength="64" 
+                class="form-control" 
+                style="width: 100%; resize: none;"></textarea>
+            </div>
+            <div class="col-md-6">
+                <button
+                #popover
+                (click)="showRangeSelector(showIt); (!showIt);"
+                [nbPopover]="rangeSelector"
+                nbPopoverTrigger="noop"
+                nbPopoverPlacement="bottom"
+                nbButton
+                class="btn-block"
+                status="info"
+                *ngIf="!dateTouched"
+              >
+                Date <nb-icon icon="calendar"></nb-icon>
+              </button>
+              <button
+                #popover
+                (click)="showRangeSelector(showIt); (!showIt)"
+                [nbPopover]="rangeSelector"
+                nbPopoverTrigger="noop"
+                nbPopoverPlacement="bottom"
+                nbButton
+                class="btn-block"
+                status="info"
+                outline
+                *ngIf="dateTouched && currentSelection === 'Custom'"
+              >
+                {{ range.start | date: 'dd/MM/yy' }} - {{ range.end | date: 'dd/MM/yy' }} <nb-icon icon="calendar"></nb-icon>
+                </button>
+                <button
+                #popover
+                (click)="showRangeSelector(showIt); (!showIt);"
+                [nbPopover]="rangeSelector"
+                nbPopoverTrigger="noop"
+                nbPopoverPlacement="bottom"
+                nbButton
+                class="btn-block"
+                status="info"
+                outline
+                *ngIf="dateTouched && currentSelection === 'Date'"
+              >
+                {{ range.start | date: 'dd/MM/yy' }} <nb-icon icon="calendar"></nb-icon>
+                </button>
+                <button
+                (click) = 'openWindowForm()'
+                nbButton
+                class="btn-block"
+                status="info"
+              >
+                Analytics 
+              </button>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <button
+        [status]="'success'"
+        nbButton
+        class="btn-block"
+        (click)="sendData()"
+        *ngIf="!loading"
+      >
+        Upload and Process
+      </button>
+      <button nbButton class="btn-block" [status]="'primary'" [nbSpinner]="true" nbSpinnerSize="giant" nbSpinnerStatus="primary"  *ngIf="loading" [disabled]="loading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </nb-card-body>
+    <nb-card-body *ngIf="view">
+        <nb-card>
+            <nb-card-body>
+              
+              <div [innerHTML]="sanitizedString"></div>
+              <div class="dropdown-divider"></div>
+              <div class="video-container">
+                  <div class="video-card" *ngFor="let video of result | slice:0:-1; let i = index">
+                      <nb-card [ngClass]="{'disabled-card': video.disabled}">
+                          <nb-card-body>
+                              <video width="100%" height="auto" controls>
+                                  <source [src]="video.output_file" type="video/mp4">
+                                  Your browser does not support the video tag.
+                              </video>
+                              <div class="dropdown-divider"></div>
+                              <nb-select fullWidth [(ngModel)]="video.event" disabled>
+                                  <nb-option value="BE">Before</nb-option>
+                                  <nb-option value="DU">During</nb-option>
+                                  <nb-option value="AF">After</nb-option>
+                              </nb-select>
+                              <div class="dropdown-divider"></div>
+                              <button
+                              [status]="'danger'"
+                              nbButton
+                              class="btn-block"
+                              (click)="delete(video , i)"
+                            >
+                              Delete &nbsp;<i class="far fa-trash-alt"></i>
+                            </button>
+                              <!-- <textarea 
+                              placeholder="Enter description (max 64 characters)" 
+                              [(ngModel)]="video.description" 
+                              maxlength="64" 
+                              class="form-control" 
+                              style="height: 5vw; width: 100%; resize: none;"></textarea> -->
+                          </nb-card-body>
+                      </nb-card>
+                  </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div>
+                <label for="slider">Number of Images to Display:</label>
+                <input
+                  id="slider"
+                  type="range"
+                  min="1"
+                  [max]="maxSavePathsLength"
+                  [(ngModel)]="sliderValue"
+                  (change)="onSliderChange()"
+                />
+                <span>{{ sliderValue }}</span>
+              </div>
+              <div  *ngFor="let item of result | slice:0:-1; let i = index">
+                <div *ngIf="item.save_paths">
+                  <div class="video-container">
+                    <div class="img-card" *ngFor="let img of item.save_paths">
+                      <nb-card>
+                        <nb-card-body>
+                          <img [src]="img" alt="Image" style="max-width: 100%; margin-bottom: 10px; cursor: pointer;" (click)="openIm(img)">
+                        </nb-card-body>
+                      </nb-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+        </nb-card>
+    </nb-card-body>
+</nb-card>
+
+<ng-template #rangeSelector>
+    <nb-list>
+      <nb-list-item>
+        <div class="row">
+          <div
+            style="width: 100px"
+            class="col-md-auto"
+            (click)="selectRangeType('Date')"
+          >
+            <nb-radio name="range" [checked]="currentSelection == 'Date'"
+              >Date</nb-radio
+            >
+          </div>
+          <div class="col">
+            <input
+              nbInput
+              placeholder="Pick Date"
+              [disabled]="currentSelection != 'Date'"
+              [value]="range.start"
+              [nbDatepicker]="dateTimePicker"
+              fullWidth
+              fieldSize="small"
+            />
+            <!-- <nb-date-timepicker (dateChange) = "setDate($event)" [max]="fin" [datepickerAdapter]='' [(date)] = "selectedDate" #dateTimePicker withSeconds></nb-date-timepicker> -->
+            <nb-datepicker
+              (dateChange)="setDate($event)"
+              [max]="fin"
+              [(date)]="selectedDate"
+              #dateTimePicker
+            ></nb-datepicker>
+          </div>
+        </div>
+      </nb-list-item>
+      <nb-list-item>
+        <div class="row">
+          <div
+            style="width: 100px"
+            class="col-md-auto"
+            (click)="selectRangeType('Custom')"
+          >
+            <nb-radio
+              name="range"
+              [checked]="currentSelection == 'Custom'"
+              (onClick)="selectRangeType('Custom')"
+              >Custom</nb-radio
+            >
+          </div>
+          <div class="col">
+            <!-- <input nbInput placeholder="Pick Date" [nbDatepicker]="dateTimePicker" [disabled] = "currentSelection != 'Custom'" fullWidth fieldSize="small">
+                                  <nb-date-timepicker
+                                  singleColumn
+                                  [step]="10"
+                                  #dateTimePicker></nb-date-timepicker> -->
+            <input
+              nbInput
+              placeholder="Today - Pick a new Range"
+              [nbDatepicker]="rangepicker"
+              [disabled]="currentSelection != 'Custom'"
+              fullWidth
+              fieldSize="small"
+            />
+            <nb-rangepicker
+              #rangepicker
+              [max]="max"
+              [(range)]="range"
+              style="margin-left: 2px"
+              (rangeChange)="changeRange($event)"
+            ></nb-rangepicker>
+          </div>
+        </div>
+      </nb-list-item>
+    </nb-list>
+    <!-- <button (click)='show()'>aaaa</button> -->
+  </ng-template>
+  

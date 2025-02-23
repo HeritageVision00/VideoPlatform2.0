@@ -1,0 +1,64 @@
+<div class="row" style="height:100%; max-width: 100vw; overflow: hidden !important;" [ngClass]="{darkTheme2: now_user.theme === 'dark', cosmicTheme2:  now_user.theme === 'cosmic', whiteTheme2:  now_user.theme === 'default' || now_user.theme === 'corporate' || now_user.theme === null}">
+    <div [ngClass]="{
+        'sidebar-collapsed': isCollapsed,
+        'sidebar-expanded': !isCollapsed,
+        darkTheme: now_user.theme === 'dark',
+        cosmicTheme: now_user.theme === 'cosmic',
+        whiteTheme: now_user.theme === 'default' || now_user.theme === 'corporate' || now_user.theme === null
+      }"
+       class="no-padding sidebar" style="height: 100%;">
+        <nb-card class = "menu-card flex-shrink-0">
+            <nb-card-header align='center' class = "menu-card-header">
+                <div class="logo-container" style='object-fit: contain;'>
+                    <img src="{{pic}}" style='object-fit: inherit;' class='responsive'>
+                </div>
+            </nb-card-header>
+            <nb-card-body style = 'padding: 0px !important;'>
+                <div class="header-container">
+                    <div class="logo-container">
+                        <a (click)="toggleSidebar()" class="sidebar-toggle" style="cursor: pointer;">
+                            <nb-icon icon="menu-2-outline"></nb-icon>
+                        </a>
+                    </div>
+                </div>
+              <nb-list>
+                <nb-list-item (click) = "analytic=overview" [ngClass]="getOverviewClassName()" style = "border-top: 0px !important;">
+                    {{!isCollapsed ? "General Dashboard" : getInitials("General Dashboard")}}{{!isCollapsed ? '' : ')'}}
+                </nb-list-item>
+                <nb-list-item class = "algo-menu-category" style = "border-top: 0px !important; border-bottom: 0px !important;"> 
+                    <span [ngClass]="{darkTheme: now_user.theme === 'dark', cosmicTheme:  now_user.theme === 'cosmic'}">Premises</span>
+                </nb-list-item>
+                <nb-list-item (click) = "analytic=alg;reload(alg)" (click)="valuetrueee()" (click)="handleClick(alg)"  [ngClass]="getClassName(alg)" *ngFor='let alg of info.analyticsP' style = "border-top: 0px !important; border-bottom: 0px !important;">
+                    {{!isCollapsed ? alg.name : getInitials(alg.name)}}{{!isCollapsed ? '' : ')'}} &nbsp;<span class="icon-with-number" *ngIf="isMatch(alg.name)">         
+                        <span *ngIf="valuetrue" class="number circle" >{{ getAlertValue(alg.name) }}</span>
+                    </span>
+                    <span *ngIf="specificanalyticvalue"> 
+                </span>
+                </nb-list-item>
+                <nb-list-item class = "algo-menu-category" *ngIf='dispThreats'>
+                    <span [ngClass]="{darkTheme: now_user.theme === 'dark', cosmicTheme:  now_user.theme === 'cosmic'}" style = "border-top: 0px !important; border-bottom: 0px !important;">Threats</span>
+                </nb-list-item>
+                <nb-list-item (click) = "analytic=alg;reload(alg)" (click)="valuetrueee()" [ngClass]="getClassName(alg)" *ngFor='let alg of info.analyticsT' style = "border-top: 0px !important; border-bottom: 0px !important;">
+                    {{!isCollapsed ? alg.name : getInitials(alg.name)}}{{!isCollapsed ? '' : ')'}}&nbsp;<span   class="icon-with-number" *ngIf="isMatch(alg.name)">
+                        
+                        <span *ngIf="valuetrue" class="number circle">{{ getAlertValue(alg.name) }}</span>
+                    </span>
+                </nb-list-item>
+                <!-- <nb-list-item class = "algo-menu-category">
+                    <span>LIVE VIEW</span>
+                </nb-list-item>
+                <nb-list-item (click) = "analytic=liveView;" [ngClass]="(analytic!=liveView)?'algo-menu':'algo-menu-selected'" >
+                    Live View
+                </nb-list-item> -->
+              </nb-list>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div [ngClass]="{
+        'main-content-expanded': isCollapsed,
+        darkTheme2: now_user.theme === 'dark',
+        cosmicTheme2: now_user.theme === 'cosmic'
+      }" class="main-content dashboard-ctr" style="height: 100%; overflow-y: auto;">
+       <ngx-control [analytic]="analytic" [cameras]='cameras' (cameraSel)="aaa($event)" [rel]='rel' [camId] = 'camera' [analytics]='analytics'></ngx-control>
+    </div>
+</div>

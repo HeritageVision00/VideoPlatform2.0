@@ -1,0 +1,61 @@
+<!--  
+<nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-car">
+time range
+    </nb-card-header>
+    <nb-card-body >
+        <form action=""> 
+          <label for="">Start Date Time:</label>
+            <input nbInput placeholder="Start Date" [nbDatepicker]="startDateTimepicker">
+            <nb-date-timepicker 
+              #startDateTimepicker
+              singleColumn
+              [step]="10"></nb-date-timepicker>
+              <br>
+              <br>
+              <label for="">End Date Time :</label>
+              <input required nbInput placeholder="End Date" [nbDatepicker]="endDateTimepicker">
+            <nb-date-timepicker 
+            #endDateTimepicker
+              singleColumn
+              [step]="10"></nb-date-timepicker> 
+              <div class="form-group" style="margin-top: 10px;" >
+                <button   type="button" class="btn btn-primary"  >Process</button> &nbsp; &nbsp;   &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                <button type="button" class="btn btn-primary"   >Cancel</button>
+            </div>
+            </form>  
+    </nb-card-body>
+</nb-card> -->
+<nb-card class="custom-dialog-wrapper">
+  <nb-card-header class="head-car">
+      time range
+  </nb-card-header>
+  <nb-card-body >
+      <form [formGroup]="dateRangeForm" (ngSubmit)="onProcessSubmit()"> 
+        <label for="startDateTime">Start Date Time:</label>
+        <input nbInput placeholder="Start Date" [nbDatepicker]="startDateTimepicker" formControlName="startDateTime">
+        <nb-date-timepicker 
+          #startDateTimepicker
+          singleColumn
+          [step]="10"></nb-date-timepicker>
+          <span *ngIf="dateRangeForm.get('startDateTime').invalid && (dateRangeForm.get('startDateTime').touched || dateRangeForm.get('startDateTime').dirty)" class="text-danger">
+            Start Date Time is required
+          </span>
+        <br>
+        <br>
+        <label for="endDateTime">End Date Time :</label>
+        <input required nbInput placeholder="End Date" [nbDatepicker]="endDateTimepicker" formControlName="endDateTime">
+        <nb-date-timepicker 
+          #endDateTimepicker
+          singleColumn
+          [step]="10"></nb-date-timepicker> 
+          <span *ngIf="dateRangeForm.get('endDateTime').invalid && (dateRangeForm.get('endDateTime').touched || dateRangeForm.get('endDateTime').dirty)" class="text-danger">
+            End Date Time is required
+          </span>
+        <div class="form-group" style="margin-top: 10px;">
+          <button type="submit" class="btn btn-primary">Process</button> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+          <button type="button" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+        </div>
+      </form>  
+  </nb-card-body>
+</nb-card>

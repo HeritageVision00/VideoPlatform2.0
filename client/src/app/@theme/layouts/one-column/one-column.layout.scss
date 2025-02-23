@@ -1,0 +1,38 @@
+@import '../../styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  .menu-sidebar ::ng-deep .scrollable {
+    padding-top: nb-theme(layout-padding-top);
+    // background-color: #FFFFFF;
+     overflow: hidden !important;
+  }
+
+ .no-padding {
+    padding: 0px !important; 
+    background-color: #eeeeee
+  }
+}
+
+.nb-layout.with-scroll.scrollable-container {
+  overflow: hidden !important;
+}
+.bgcon{
+  padding: 0px !important; 
+  // background-image:url(background)
+  // background-size: cover;
+}
+// .menu-sidebar {
+//    //border-width: 3px; /* Adjust width as needed */
+//   //height: 100%; /* Ensure sidebar covers full height */
+//   position: fixed;
+//   top: 0;
+//   right: 0; /* Position sidebar on the right */
+//   background: blue;
+//   //background-color: red;
+//   z-index: 1000; /* Ensure sidebar appears above other content */
+// }
+// .menu-sidebar.active {
+//   right: 100px; /* Move sidebar to the right when active */
+// }

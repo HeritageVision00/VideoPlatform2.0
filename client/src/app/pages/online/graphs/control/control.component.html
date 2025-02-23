@@ -1,0 +1,236 @@
+<div class="container" [ngClass]="{darkTheme: now_user.theme === 'dark', cosmicTheme:  now_user.theme === 'cosmic'}">
+    <div class="row justify-content-between" [ngClass]="{'darkTheme': now_user.theme === 'dark', 'cosmicTheme':  now_user.theme === 'cosmic'}">
+        <div class = "col less-padding">
+        </div>
+        <div class = "col-md-auto less-padding" *ngFor='let i of items'>
+                <button [routerLink] = "i.link" nbInput class="status-basic" [ngClass]="{'topButton-dark3': now_user.theme === 'dark' , 'topButton-corporate3':  now_user.theme === 'corporate', 'topButton-cosmic3':  now_user.theme === 'cosmic', 'topButton-white3': now_user.theme === 'default' || now_user.theme === null}" ghost status="danger" size = "tiny"><nb-icon icon="{{i.icon}}" ></nb-icon>&nbsp;{{i.title}}</button>
+        </div>
+        <div class="col-md-auto less-padding">
+            <button (click)='signOff()' nbInput class="status-basic" [ngClass]="{'topButton-dark3': now_user.theme === 'dark' , 'topButton-corporate3':  now_user.theme === 'corporate', 'topButton-cosmic3':  now_user.theme === 'cosmic', 'topButton-white3': now_user.theme === 'default' || now_user.theme === null}" ghost status="danger" size = "tiny"><nb-icon icon="close-circle-outline" ></nb-icon>Log Out</button>
+        </div>
+    </div>
+    <div class="row justify-content-between" style = "padding-top: 5px">
+        <div class="col-4">
+            <p class = "analytic-name" [ngClass]="{'topButton-dark': now_user.theme === 'dark', 'topButton-cosmic':  now_user.theme === 'cosmic', 'topButton': now_user.theme === 'default' || now_user.theme === 'corporate' || now_user.theme === null}">{{analytic.name}}</p>
+        </div>
+        <div class="col-8" align='right'>
+            <div class = "row">
+                <div class = "col">
+                </div>
+                <div class="col-md-auto less-padding" align='right' *ngIf='now_user.id_branch != "0000" && analytic.algo_id === -3' class="selectNew">
+                    <nb-select [(ngModel)]='analyt' (ngModelChange)='cam($event)' size="small" class="selectNew" style ='width: 200px; word-wrap: break-word;'>
+                        <nb-option value="" class="selectNew">All Analytics</nb-option>
+                        <nb-option class="selectNew" *ngFor='let analytic of analytics' [value]=analytic.algo_id>{{analytic.name}}</nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-md-auto less-padding" align='right' *ngIf='now_user.id_branch != "0000"' class="selectNew">
+                    <nb-select [(ngModel)]='camera' (ngModelChange)='cam($event)' size="small" class="selectNew" style ='width: 200px; word-wrap: break-word;'>
+                        <nb-option value="" class="selectNew" disabled>Choose a camera:</nb-option>
+                        <nb-option class="selectNew" [value]='""'>All Cameras</nb-option>
+                        <nb-option class="selectNew" *ngIf="analytic.name === 'ANPR'" [value]='"abc"'>All ANPR Cameras</nb-option>
+                        <nb-option class="selectNew" *ngFor='let cam of cameras' [value]=cam.id>{{cam.name}}</nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-md-auto less-padding">
+                    <button style = "width: 130px" [ngClass]="{'topButton-dark2': now_user.theme === 'dark' , 'topButton-corporate2':  now_user.theme === 'corporate', 'topButton-cosmic2':  now_user.theme === 'cosmic', 'topButton-white2': now_user.theme === 'default' || now_user.theme === null, 'status-basic': now_user.theme === 'default' || now_user.theme === null}" #popover (click) = "showRangeSelector(true)" [nbPopover]="rangeSelector" nbPopoverTrigger="noop" nbPopoverPlacement="bottom" size="small" nbInput>{{currentSelection}} &nbsp;<nb-icon icon="calendar"></nb-icon></button>
+                </div>
+                <div class = "col-md-auto less-padding">
+                    <button style = "min-height: 32px" [ngClass]="{'topButton-dark2': now_user.theme === 'dark' , 'topButton-corporate2':  now_user.theme === 'corporate', 'topButton-cosmic2':  now_user.theme === 'cosmic', 'topButton-white2': now_user.theme === 'default' || now_user.theme === null, 'status-basic': now_user.theme === 'default' || now_user.theme === null}"  (click)="reload()" size="small" nbInput><nb-icon icon="refresh-outline"></nb-icon></button>
+                </div>
+                <div class = "col-md-auto less-padding" class="selectNew">
+                    <nb-select  [(ngModel)]='reTime' (ngModelChange)='set($event)' id='select' size="small" class="selectNew">
+                        <nb-option class="selectNew" [value]=0>Off</nb-option>
+                        <nb-option class="selectNew" [value]=5>5 s</nb-option>
+                        <nb-option class="selectNew" [value]=30>30 s</nb-option>
+                        <nb-option class="selectNew" [value]=60>1 m</nb-option>
+                        <nb-option class="selectNew" [value]=300>5 m</nb-option>
+                        <nb-option class="selectNew" [value]=600>10 m</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-end">
+        <div class="col-5">
+        <div *ngIf="showRange" class="text-danger wrap-text" align='right'>
+            <small>Fill the range, for a day, click it twice.</small>
+        </div>
+    </div>
+    <div class="col-md-auto less-padding" align='right' *ngIf='now_user.id_branch == "0000"'>
+        <nb-select [(ngModel)]='camera' (ngModelChange)='cam($event)'>
+            <nb-option value="" disabled>Choose a location:</nb-option>
+            <nb-option *ngFor='let loc of cameras' [value]=loc.id_branch>{{loc.username}}</nb-option>
+        </nb-select>
+        </div>
+    </div>
+    
+    </div>
+    <div class="container" *ngIf='camera != "" || analytic.algo_id == "-3" || analytic.algo_id == "-6" || analytic.algo_id == "80"' (click) = "showRangeSelector(false)">
+        <div class='col-md-12 no-padding' style="margin-top: 5px;" [ngSwitch]='analytic.algo_id'>
+            <nb-card *ngSwitchCase='-1' [nbSpinner]="'primary'" nbSpinnerSize="medium" nbSpinnerStatus="primary" fullWdith><nb-card-body>&nbsp;</nb-card-body></nb-card>
+            <nb-card *ngSwitchCase='-2'><nb-card-body style="text-align: center"> No relation between the camera and the analytic</nb-card-body></nb-card>
+            <ngx-dash *ngSwitchDefault [range]='range' [camera]='camera' [analytic]='analyt'></ngx-dash>
+            <ngx-pc *ngSwitchCase='12' [range]='range' [camera]='camera'></ngx-pc>
+            <ngx-loit *ngSwitchCase='2' [range]='range' [camera]='camera'></ngx-loit>
+            <ngx-climbing-barricade *ngSwitchCase='1' [range]='range' [camera]='camera'></ngx-climbing-barricade>
+            <ngx-intr *ngSwitchCase='17' [range]='range' [camera]='camera'></ngx-intr>
+            <ngx-intr *ngSwitchCase='67' [range]='range' [camera]='camera'></ngx-intr>
+            <ngx-viol *ngSwitchCase='19' [range]='range' [camera]='camera'></ngx-viol>
+            <ngx-aod *ngSwitchCase='16' [range]='range' [camera]='camera'></ngx-aod>
+            <ngx-c-face *ngSwitchCase='20' [range]='range' [camera]='camera'></ngx-c-face>
+            <ngx-social *ngSwitchCase='21' [range]='range' [camera]='camera'></ngx-social>
+            <ngx-queue *ngSwitchCase='22' [range]='range' [camera]='camera'></ngx-queue>
+            <ngx-helm *ngSwitchCase='23' [range]='range' [camera]='camera'></ngx-helm>
+            <ngx-vault *ngSwitchCase='24' [range]='range' [camera]='camera'></ngx-vault>
+           <!--  <ngx-parking *ngSwitchCase='4' [range]='range' [camera]='camera'></ngx-parking> -->
+            <ngx-anpr *ngSwitchCase='13' [range]='range' [camera]='camera'></ngx-anpr>
+            <ngx-barrier *ngSwitchCase='25' [range]='range' [camera]='camera'></ngx-barrier>
+            <!-- <ngx-vehicle *ngSwitchCase='26' [range]='range' [camera]='camera'></ngx-vehicle> -->
+            <ngx-tamper *ngSwitchCase='27' [range]='range' [camera]='camera'></ngx-tamper>
+            <ngx-animals-on-road *ngSwitchCase='28' [range]='range' [camera]='camera'></ngx-animals-on-road>
+            <ngx-accident *ngSwitchCase='29' [range]='range' [camera]='camera'></ngx-accident>
+            <ngx-axle *ngSwitchCase='30' [range]='range' [camera]='camera'></ngx-axle>
+            <ngx-carmake *ngSwitchCase='31' [range]='range' [camera]='camera'></ngx-carmake>
+            <ngx-illegal-parking *ngSwitchCase='4' [range]='range' [camera]='camera'></ngx-illegal-parking>
+            <ngx-vehicle-count *ngSwitchCase='26' [range]='range' [camera]='camera'></ngx-vehicle-count>
+            <ngx-wrong-turn *ngSwitchCase='8' [range]='range' [camera]='camera'></ngx-wrong-turn>
+            <ngx-speeding *ngSwitchCase='5' [range]='range' [camera]='camera'></ngx-speeding>
+            <ngx-cloth *ngSwitchCase='32' [range]='range' [camera]='camera'></ngx-cloth>
+            <ngx-fr *ngSwitchCase='0' [range]='range' [camera]='camera'></ngx-fr>
+            <ngx-fr *ngSwitchCase='15' [range]='range' [camera]='camera'></ngx-fr>
+            <ngx-pc-camera *ngSwitchCase='33' [range]='range' [camera]='camera'></ngx-pc-camera>
+            <ngx-brand-car *ngSwitchCase='34' [range]='range' [camera]='camera'></ngx-brand-car>
+            <ngx-path *ngSwitchCase='37' [range]='range' [camera]='camera' (refresh)="reloadPath($event)" [paths]='paths'></ngx-path>
+            <!-- <ngx-heatmap *ngSwitchCase='14' [range]='range' [camera]='camera' [info]='info'></ngx-heatmap> -->
+            <ngx-collapse *ngSwitchCase='38' [range]='range' [camera]='camera'></ngx-collapse>
+            <ngx-fire *ngSwitchCase='39' [range]='range' [camera]='camera'></ngx-fire>
+            <ngx-fire *ngSwitchCase='66' [range]='range' [camera]='camera'></ngx-fire>
+            <ngx-bottle *ngSwitchCase='36' [range]='range' [camera]='camera'></ngx-bottle>
+            <ngx-weapon *ngSwitchCase='35' [algoId]='35' [range]='range' [camera]='camera'></ngx-weapon>
+            <ngx-following *ngSwitchCase='49' [range]='range' [camera]='camera'></ngx-following>
+            <ngx-pulling-hair *ngSwitchCase='40' [range]='range' [camera]='camera'></ngx-pulling-hair>
+            <ngx-purse-snatching *ngSwitchCase='48' [algoId]='48' [range]='range' [camera]='camera'></ngx-purse-snatching>
+            <ngx-pushing *ngSwitchCase='50' [range]='range' [camera]='camera'></ngx-pushing>
+            <ngx-running *ngSwitchCase='46' [range]='range' [camera]='camera'></ngx-running>
+            <ngx-slapping *ngSwitchCase='44' [range]='range' [camera]='camera'></ngx-slapping>
+            <ngx-smoking *ngSwitchCase='42' [range]='range' [camera]='camera'></ngx-smoking>
+            <ngx-waving-hands *ngSwitchCase='41' [range]='range' [camera]='camera'></ngx-waving-hands>
+            <ngx-disrobing *ngSwitchCase='47' [range]='range' [camera]='camera'></ngx-disrobing>
+            <ngx-crowd *ngSwitchCase='43' [range]='range' [camera]='camera'></ngx-crowd>
+            <ngx-blocking *ngSwitchCase='45' [range]='range' [camera]='camera'></ngx-blocking>
+            <ngx-people-tracking *ngSwitchCase='51' [range]='range' [camera]='camera'></ngx-people-tracking>
+            <ngx-transpassing *ngSwitchCase='52' [range]='range' [camera]='camera'></ngx-transpassing>
+            <ngx-camera-defocused *ngSwitchCase='53' [range]='range' [camera]='camera'></ngx-camera-defocused>
+            <ngx-camera-blinded *ngSwitchCase='54' [range]='range' [camera]='camera'></ngx-camera-blinded>
+            <ngx-scene-change *ngSwitchCase='55' [range]='range' [camera]='camera'></ngx-scene-change>
+            <ngx-object-removal *ngSwitchCase='56' [range]='range' [camera]='camera'></ngx-object-removal>
+            <ngx-smoke-detection *ngSwitchCase='57' [range]='range' [camera]='camera'></ngx-smoke-detection>
+            <ngx-velocity *ngSwitchCase='58' [range]='range' [camera]='camera'></ngx-velocity>
+            <ngx-enter-exit-v *ngSwitchCase='65' [range]='range' [camera]='camera'></ngx-enter-exit-v>
+            <ngx-enter-exit *ngSwitchCase='59' [range]='range' [camera]='camera'></ngx-enter-exit>
+            <ngx-no-exit *ngSwitchCase='60' [range]='range' [camera]='camera'></ngx-no-exit>
+            <ngx-harrasment *ngSwitchCase='61' [range]='range' [camera]='camera'></ngx-harrasment>
+            <ngx-abduction *ngSwitchCase='62' [range]='range' [camera]='camera'></ngx-abduction>
+            <ngx-direction *ngSwitchCase='63' [range]='range' [camera]='camera'></ngx-direction>
+            <ngx-signal-lost *ngSwitchCase='64' [range]='range' [camera]='camera'></ngx-signal-lost>
+            <ngx-ham-cheese *ngSwitchCase='68' [range]='range' [camera]='camera'></ngx-ham-cheese>
+            <ngx-congestion *ngSwitchCase='70' [range]='range' [camera]='camera'></ngx-congestion>
+            <ngx-veh-loit *ngSwitchCase='72' [range]='range' [camera]='camera'></ngx-veh-loit>
+            <ngx-ppe *ngSwitchCase='71' [range]='range' [camera]='camera'></ngx-ppe>
+            <ngx-defect *ngSwitchCase='73' [range]='range' [camera]='camera'></ngx-defect>
+            <ngx-module-defect *ngSwitchCase='74' [range]='range' [camera]='camera'></ngx-module-defect>
+            <ngx-graffiti *ngSwitchCase='9' [range]='range' [camera]='camera'></ngx-graffiti>
+            <ngx-am *ngSwitchCase='18' [range]='range' [camera]='camera'></ngx-am>
+            <ngx-traffic-signal *ngSwitchCase='75' [algoId]='75' [range]='range' [camera]='camera'></ngx-traffic-signal>
+            <ngx-flashing *ngSwitchCase='76' [algoId]='76' [range]='range' [camera]='camera'></ngx-flashing>
+            <ngx-stalking-woman-area *ngSwitchCase='77' [algoId]='77' [range]='range' [camera]='camera'></ngx-stalking-woman-area>
+            <ngx-stalking-woman-night *ngSwitchCase='78' [algoId]='78' [range]='range' [camera]='camera'></ngx-stalking-woman-night>
+            <ngx-stalking-woman-scooty *ngSwitchCase='79' [algoId]='79' [range]='range' [camera]='camera'></ngx-stalking-woman-scooty>
+            <ngx-audio-gunshot *ngSwitchCase='80' [algoId]='80' [range]='range' [camera]='camera' (cameraSel)="mic($event)"></ngx-audio-gunshot>
+            <ngx-injury-and-blood *ngSwitchCase='81' [algoId]='81' [range]='range' [camera]='camera'></ngx-injury-and-blood>
+            <ngx-suicide-tendency *ngSwitchCase='82' [algoId]='82' [range]='range' [camera]='camera'></ngx-suicide-tendency>
+            <ngx-smokers-group *ngSwitchCase='83' [algoId]='83' [range]='range' [camera]='camera'></ngx-smokers-group>
+            <ngx-drinkers-group *ngSwitchCase='84' [algoId]='84' [range]='range' [camera]='camera'></ngx-drinkers-group>
+            <ngx-teasing-women *ngSwitchCase='85' [algoId]='85' [range]='range' [camera]='camera'></ngx-teasing-women>
+            <ngx-open-defecation *ngSwitchCase='86' [algoId]='86' [range]='range' [camera]='camera'></ngx-open-defecation>
+            <ngx-acid-attack *ngSwitchCase='87' [algoId]='87' [range]='range' [camera]='camera'></ngx-acid-attack>
+            <ngx-zigzag *ngSwitchCase='88' [algoId]='88' [range]='range' [camera]='camera'></ngx-zigzag>
+            <ngx-malemovement *ngSwitchCase='89' [algoId]='89' [range]='range' [camera]='camera'></ngx-malemovement>
+            <ngx-malebeh *ngSwitchCase='90' [algoId]='90' [range]='range' [camera]='camera'></ngx-malebeh>
+            <ngx-abnormal *ngSwitchCase='91' [algoId]='91' [range]='range' [camera]='camera'></ngx-abnormal>
+            <ngx-jaywalking *ngSwitchCase='92' [algoId]='92' [range]='range' [camera]='camera'></ngx-jaywalking>
+            <ngx-abnormal-running *ngSwitchCase='93' [algoId]='93' [range]='range' [camera]='camera'></ngx-abnormal-running>
+            <ngx-gambling *ngSwitchCase='94' [algoId]='94' [range]='range' [camera]='camera'></ngx-gambling>
+            <ngx-frequent-visiting *ngSwitchCase='95' [algoId]='95' [range]='range' [camera]='camera'></ngx-frequent-visiting>
+            <ngx-stranded-girl *ngSwitchCase='96' [algoId]='96' [range]='range' [camera]='camera'></ngx-stranded-girl>
+            <ngx-unconscious *ngSwitchCase='97' [algoId]='97' [range]='range' [camera]='camera'></ngx-unconscious>
+            <ngx-stunt-bikers *ngSwitchCase='98' [algoId]='98' [range]='range' [camera]='camera'></ngx-stunt-bikers>
+            <ngx-inkthrowing *ngSwitchCase='99' [algoId]='99' [range]='range' [camera]='camera'></ngx-inkthrowing>
+            <ngx-drugsdistribution *ngSwitchCase='100' [algoId]='100' [range]='range' [camera]='camera'></ngx-drugsdistribution>
+            <ngx-prnmaterial *ngSwitchCase='101' [algoId]='101' [range]='range' [camera]='camera'></ngx-prnmaterial>
+            <ngx-kidnapping *ngSwitchCase='102' [algoId]='102' [range]='range' [camera]='camera'></ngx-kidnapping>
+            <ngx-women-safety *ngSwitchCase='103' [algoId]='103' [range]='range' [camera]='camera'></ngx-women-safety>
+            <ngx-women-collapse *ngSwitchCase='104' [algoId]='104' [range]='range' [camera]='camera'></ngx-women-collapse>
+            <ngx-women-violence *ngSwitchCase='105' [algoId]='105' [range]='range' [camera]='camera'></ngx-women-violence>
+            <ngx-slaping-w *ngSwitchCase='106' [algoId]='106' [range]='range' [camera]='camera'></ngx-slaping-w>
+            <ngx-npr *ngSwitchCase='107' [algoId]='107' [range]='range' [camera]='camera'></ngx-npr>
+            <ngx-boys-shadow *ngSwitchCase='108' [algoId]='108' [range]='range' [camera]='camera'></ngx-boys-shadow>
+            <ngx-freq-visitor *ngSwitchCase='109' [algoId]='109' [range]='range' [camera]='camera'></ngx-freq-visitor>
+            <ngx-uniformtracking *ngSwitchCase='110' [algoId]='110' [range]='range' [camera]='camera'></ngx-uniformtracking>
+            <ngx-jump-track *ngSwitchCase='112' [algoId]='112' [range]='range' [camera]='camera'></ngx-jump-track>
+            <ngx-edge-crossing *ngSwitchCase='111' [algoId]='111' [range]='range' [camera]='camera'></ngx-edge-crossing>
+            <ngx-street-vendor *ngSwitchCase='115' [algoId]='115' [range]='range' [camera]='camera'></ngx-street-vendor>
+            <ngx-nurse-dwell *ngSwitchCase='116' [algoId]='116' [range]='range' [camera]='camera'></ngx-nurse-dwell>
+            <ngx-absences *ngSwitchCase='117' [algoId]='117' [range]='range' [camera]='camera'></ngx-absences>
+            <ngx-absencesnoperson *ngSwitchCase='118' [algoId]='118' [range]='range' [camera]='camera'></ngx-absencesnoperson>
+            <ngx-bycicle-motor *ngSwitchCase='119' [algoId]='119' [range]='range' [camera]='camera'></ngx-bycicle-motor>
+            <ngx-amc *ngSwitchCase='-6' [range]='range' [camera]='camera'></ngx-amc>
+            <app-live *ngSwitchCase='-4' [camera]='camera'></app-live>
+        </div>
+    </div>
+    
+    <ng-template #rangeSelector>
+        <nb-list style="width: 330px;">
+            <nb-list-item >
+                <div class = "row row1">
+                    <div class="radio-group d-flex">
+                        <input type="radio" id="Date" name="customRadio" value="Date" [(ngModel)]="currentSelection" (click) = "selectRangeType('Date')" >
+                        <label [ngClass]="getRadioStyle()" for="Date" class="custom-radio align-items-center justify-content-center" (click) = "selectRangeType('Date')"></label>
+                        <span (click) = "selectRangeType('Date')">Date</span>
+                    </div>
+                    <div class = "col-md-8 no-padd">
+                        <input nbInput placeholder="Pick Date"  [disabled] = "currentSelection != 'Date'" [value]="formattedDate" [nbDatepicker]="dateTimePicker" fullWidth fieldSize="small" style="cursor: pointer;" [ngClass]="{'status-basic': now_user.theme === 'default' || now_user.theme === null}">
+                        <nb-datepicker (dateChange) = "setDate($event)" [max]="lastDate" [(date)] = "selectedDate" #dateTimePicker></nb-datepicker>
+                    </div>
+                </div>
+            </nb-list-item>
+            <nb-list-item >
+                <div class = "row row1" >
+                    <div class="radio-group d-flex">
+                        <input type="radio" id="Month" name="customRadio" value="Month" [(ngModel)]="currentSelection" (click) = "selectRangeType('Month')">
+                        <label [ngClass]="getRadioStyle()" for="Month" class="custom-radio align-items-center justify-content-center" (click) = "selectRangeType('Month')"></label>
+                        <span (click) = "selectRangeType('Month')">Month</span>
+                    </div>
+                    <div class = "col-md-8 no-padd" >
+                        <nb-select (selectedChange) = "setMonth()" placeholder="Select Showcase" [disabled] = "currentSelection != 'Month'" [(ngModel)]="selectedMonth" fullWidth size="small">
+                            <nb-option  *ngFor='let month of lastMonths' [value]="month">{{calMonths[month.getMonth()] + " '" +  month.getFullYear()}} </nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </nb-list-item>
+            <nb-list-item >
+                <div class = "row row1">
+                    <div class="radio-group d-flex">
+                        <input type="radio" id="Custom" name="customRadio" value="Custom" [(ngModel)]="currentSelection" (click) = "selectRangeType('Custom')">
+                        <label [ngClass]="getRadioStyle()" for="Custom" class="custom-radio align-items-center justify-content-center" (click) = "selectRangeType('Custom')"></label>
+                        <span (click) = "selectRangeType('Custom')">Custom</span>
+                    </div> 
+                    <div class = "col-md-8 no-padd">
+                            <input  nbInput placeholder="Today - Pick a new Range" [nbDatepicker]="rangepicker" [disabled] = "currentSelection != 'Custom'" fullWidth fieldSize="small" style="cursor: pointer;" [ngClass]="{'status-basic': now_user.theme === 'default' || now_user.theme === null}">
+                            <nb-rangepicker  #rangepicker [max]="max" [(range)]="range" style='margin-left: 2px;' (rangeChange)="changeRange($event)"></nb-rangepicker> 
+                    </div>
+                </div>
+            </nb-list-item>
+        </nb-list>
+    </ng-template>

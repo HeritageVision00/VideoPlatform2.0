@@ -1,0 +1,176 @@
+<!-- <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-car">
+    ANPR
+    </nb-card-header>
+    <nb-card-body class="body">
+      <form id="">
+        <div class="row">
+          <div class="col-12 body">
+            <label for="numberPlate"><b>Number Plate :</b></label>
+             <input id="numberPlate" nbInput type="text">
+                  <br>
+                  <br>
+                  <label for="day" style="margin-bottom: 10px;"><b> Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; : &nbsp;</b></label>  
+                  <nb-select id="day" placeholder="Days">
+                    <nb-option selected value="Monday">Monday</nb-option>
+                    <nb-option value="Tuesday">Tuesday</nb-option>
+                    <nb-option value="Wednesday">Wednesday</nb-option>
+                    <nb-option value="Thursday">Thursday</nb-option>
+                    <nb-option value="Friday">Friday</nb-option>
+                    <nb-option value="Saturday">Saturday</nb-option>
+                    <nb-option value="Sunday">Sunday</nb-option>
+                </nb-select>
+                <div style="margin-top: 18px;"> 
+                    <span><b>Colors&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;</b></span> 
+                    <input type="radio"  id="Red"  name="color"
+                            value="Red">
+                        <label for="Red"><b> Red</b></label> &nbsp; &nbsp;
+                        <input type="radio"   id="Yellow" 
+                            name="color" value="Yellow">
+                        <label for="Yellow"><b>Yellow</b></label> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                        <input type="radio"   id="Green" 
+                            name="color" value="Green">
+                        <label for="Green"><b>Green</b></label> &nbsp;  
+                        <input type="radio"   id="Blue" 
+                            name="color" value="Blue">
+                        <label for="Blue"><b>Blue</b></label> &nbsp; 
+                        <input type="radio"   id="Black" 
+                            name="color" value="Black">
+                        <label for="Black"><b>Black</b></label> &nbsp;
+                        <input type="radio"   id="White" 
+                            name="color" value="Black">
+                        <label for="White"><b>White</b></label> 
+                  </div>
+                  <span><b>No.Plates&nbsp; :</b></span>&nbsp;
+                  <nb-select id="Plates" placeholder=" No.Plates">
+                    <nb-option selected value="Dubai 1(Single Digit)">Dubai 1(Single Digit)</nb-option>
+                    <nb-option value="Dubai 11(Double Digit)">Dubai 11(Double Digit)</nb-option>
+                    <nb-option value="Dubai 111(Triple Digit)">Dubai 111(Triple Digit)</nb-option>
+                    <nb-option value="Dubai 1111(Four Digit)">Dubai 1111(Four Digit)</nb-option>
+                </nb-select>
+                <br>
+                <br>
+                <span><b>Max Speed&nbsp; :</b></span>&nbsp;
+                  <nb-select id="day" placeholder="Max Speed">
+                    <nb-option selected value="100KM/h">100KM/h</nb-option>
+                    <nb-option value="150PMH">150PMH</nb-option>
+                    <nb-option value="160PMH">160PMH</nb-option>
+                    <nb-option value="200PMH">200PMH</nb-option>
+                </nb-select>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Process</button> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary"  >Cancel</button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card> -->
+  <nb-card class="custom-dialog-wrapper">
+    <nb-card-header class="head-car">
+      Vehicle Lookup(ANPR)
+    </nb-card-header>
+    <nb-card-body class="body">
+      <form [formGroup]="processForm" (ngSubmit)="onProcessSubmit()">
+        <div class="row">
+          <div class="col-12 body">
+            <label for="date"><b> Date and Time:</b> &nbsp;&nbsp;</label>
+            <input nbInput placeholder="Pick start time" id="startdateandtime" [nbTimepicker]="startdateTimePicker"
+              formControlName="startdateTimePicker">
+            <nb-timepicker #startdateTimePicker withSeconds></nb-timepicker>            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ml-5">To</span>
+            <br>
+            <input nbInput placeholder="Pick end time" id="enddateandtime" [nbTimepicker]="enddateTimePicker"
+              formControlName="enddateTimePicker">
+            <nb-timepicker #enddateTimePicker withSeconds></nb-timepicker>            <!-- <label for="date"><b> Date:</b> &nbsp;&nbsp;</label>
+            <input nbInput placeholder="Pick Date" id="date" style="width: 140px;" [nbDatepicker]="dateTimePicker" formControlName="PickDate">
+            <nb-datepicker #dateTimePicker></nb-datepicker>
+            <br>
+            <label class="mt-3"  ><b> Time: &nbsp;</b></label>
+            <input nbInput id="StartTime" style="width: 140px;" type="text" placeholder="Start Time" [nbTimepicker]="timepicker"
+              formControlName="StartTime" />
+            <nb-timepicker style="right: 30%;" #timepicker="nbTimepicker" twelveHoursFormat></nb-timepicker>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ml-5">To</span>
+            <input class="ml-5" required nbInput id="EndTime " placeholder="End Time " formControlName="EndTime" style="width: 140px;"
+              type="text" [nbTimepicker]="timepickerto" />
+            <nb-timepicker style="right: 30%;" #timepickerto twelveHoursFormat></nb-timepicker> -->
+            <br><br>
+            <!-- <label for="numberPlate"><b>Number Plate:</b></label>
+            <input id="numberPlate" style="width: 130px;" nbInput type="text" formControlName="numberPlate">
+            <br>
+            <br> -->
+            <!-- <label for=""><b> Time: &nbsp; </b></label>
+            <input nbInput id="timefrom" style="width: 140px;" type="text" [nbTimepicker]="timepicker" formControlName="timefrom"/>
+            <nb-timepicker style="right: 30%;" #timepicker="nbTimepicker" twelveHoursFormat></nb-timepicker>
+            <br> -->
+            <!-- <span *ngIf="processForm.get('numberPlate').invalid && processForm.get('numberPlate').touched" class="text-danger">
+              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numberPlate is required*
+             </span>
+            <br> -->
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ml-5">To</span>
+            <input class="ml-5" required nbInput id="timeto" formControlName="timeto" style="width: 140px;" type="text" [nbTimepicker]="timepickerto"/>
+            <nb-timepicker style="right: 30%;" #timepickerto twelveHoursFormat></nb-timepicker>
+            <br><br>
+            <label for="date"><b> Date:</b> &nbsp;&nbsp;</label>
+            <input nbInput placeholder="Pick Date" id="date" style="width: 140px;" [nbDatepicker]="dateTimePicker">
+        <nb-datepicker #dateTimePicker></nb-datepicker>
+        <br><br> -->
+            <!-- <label for="day"><b> Day:</b></label>
+            <nb-select id="day" formControlName="day" placeholder="Days">
+              <nb-option selected value="Monday">Monday</nb-option>
+              <nb-option value="Tuesday">Tuesday</nb-option>
+              <nb-option value="Wednesday">Wednesday</nb-option>
+              <nb-option value="Thursday">Thursday</nb-option>
+              <nb-option value="Friday">Friday</nb-option>
+              <nb-option value="Saturday">Saturday</nb-option>
+              <nb-option value="Sunday">Sunday</nb-option>
+            </nb-select> -->
+            <!-- <div style="margin-top: 18px;">
+              <span><b>Colors:</b></span>
+              <input type="radio" id="Red" name="color" value="Red" formControlName="color">
+              <label for="Red"><b> Red</b></label>&nbsp;&nbsp;
+              <input type="radio" id="Yellow" name="color" value="Yellow" formControlName="color">
+              <label for="Yellow"><b> Yellow</b></label>&nbsp;&nbsp;
+              <input type="radio" id="Green" name="color" value="Green" formControlName="color">
+              <label for="Green"><b> Green</b></label>&nbsp;&nbsp;
+              <input type="radio" id="Blue" name="color" value="Blue" formControlName="color">
+              <label for="Blue"><b> Blue</b></label>&nbsp;&nbsp;
+              <input type="radio" id="Black" name="color" value="Black" formControlName="color">
+              <label for="Black"><b> Black</b></label>&nbsp;&nbsp;
+              <input type="radio" id="White" name="color" value="White" formControlName="color">
+              <label for="White"><b> White</b></label>
+            </div> -->
+            <!-- <span><b>No. Plates:</b></span>
+            <nb-select id="Plates" formControlName="plates" placeholder="No. Plates">
+              <nb-option selected value="Dubai 1(Single Digit)">Dubai 1(Single Digit)</nb-option>
+              <nb-option value="Dubai 11(Double Digit)">Dubai 11(Double Digit)</nb-option>
+              <nb-option value="Dubai 111(Triple Digit)">Dubai 111(Triple Digit)</nb-option>
+              <nb-option value="Dubai 1111(Four Digit)">Dubai 1111(Four Digit)</nb-option>
+            </nb-select>
+            <br><br> -->
+            <!-- <span><b>Max Speed:</b></span>
+            <nb-select id="MaxSpeed" formControlName="maxSpeed" placeholder="Max Speed">
+              <nb-option selected value="100KM/h">100KM/h</nb-option>
+              <nb-option value="150KM/h">150KM/h</nb-option>
+              <nb-option value="160KM/h">160KM/h</nb-option>
+              <nb-option value="200KM/h">200KM/h</nb-option>
+            </nb-select>
+            <label for="numberPlate"><b>Number Plate:</b></label>
+            <input id="numberPlate" style="width: 130px;" nbInput type="text" formControlName="numberPlate"> -->
+             
+          </div>
+          <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-primary">Process</button>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+          </div>
+          <span *ngIf="showMissingInputsMessage" class="text-danger">
+            Please fill the missing inputs:
+            <span *ngFor="let input of getMissingInputs()">
+              {{ input }}{{ $last ? '' : ', ' }}
+            </span>
+          </span>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>

@@ -1,0 +1,99 @@
+.blue-text {
+    color: blue;
+  }
+  
+    .error-message {
+      color: red;
+      font-weight: bold;
+    }
+  
+    .hidden {
+      display: none;
+    }
+    
+  
+    .SuccessMessage {
+      color: blue;
+      font-weight: bold;
+    }
+  
+    .button-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    .upload-input {
+      margin-right: 10px;
+    }
+    
+    .refresh-button-container {
+      border: 1px solid #ddd; 
+      padding: 5px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .refresh-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #007bff;
+      transition: color 0.3s ease-in-out;
+    }
+    
+    .refresh-icon:hover {
+      color: #0056b3;
+    }
+    
+    .option-container {
+      display: flex;
+      align-items: center;
+    }
+  
+    #selectedOption {
+      margin-right: 10px; /* Add spacing between select and icon */
+    }
+    
+  
+    .refresh-button-container-1{
+      border: 2px solid #ddd; 
+      padding: 5px;
+      height: 25px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+  
+    }
+    
+    
+  .btn-block {
+    position: relative;
+    /* Add other button styling properties */
+  }
+  
+  .button-content {
+    display: block;
+  }
+  
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+   
+  
+  .spinner-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .uploading-text {
+    margin-left: 10px; /* Add some spacing between the icon and the text */
+    color: black; /* Set the desired text color */
+  }

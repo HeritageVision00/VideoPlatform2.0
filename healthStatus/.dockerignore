@@ -1,0 +1,5 @@
+Dockerfile
+configPython.env
+configPythonDocker.env
+__pycache__/**
+resources/pythonAccess.log

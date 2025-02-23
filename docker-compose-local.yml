@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  #mysql:
+    #image: mysql:5.7
+    #restart: always
+    #ports:
+      #- 3307:3306
+    #environment:
+      #MYSQL_ROOT_PASSWORD: graymatics
+      #MYSQL_DATABASE: multi_tenantRel
+      #MYSQL_USER: graymatics
+      #MYSQL_PASSWORD: graymatics
+
+  multi-tenant-server:
+    build:
+      context: ./
+      dockerfile: ./server/Dockerfile-local
+    restart: always
+    #depends_on:
+      #- mysql
+    deploy:
+      #resources:
+        #reservations:
+          #devices:
+            #- capabilities:
+                #- gpu
+    ports:
+       - 3300:3300
+    volumes:
+      - D:/home/Multi-tenant-app/:/home/Multi-tenant-app/
+      - ./config.env:/usr/src/config.env
+
+  multi-tenant-ui:
+    build:
+      context: ./
+      dockerfile: ./client/Dockerfile-local
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      

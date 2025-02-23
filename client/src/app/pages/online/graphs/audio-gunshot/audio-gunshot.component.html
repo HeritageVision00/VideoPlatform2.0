@@ -1,0 +1,25 @@
+<div class="container no-padding">
+    <div class="col-md-12 no-padding" style="margin-top: 15px">
+      <div class="row">
+        <div class="col-md-12 less-padding">
+          <nb-card>
+            <nb-card-header>
+              <div class="col-md-auto less-padding" align='right'>
+                <nb-select [(ngModel)]='mic' (ngModelChange)='rel(mic)' size="small">
+                    <nb-option value="" disabled>Choose a microhpone:</nb-option>
+                    <nb-option *ngFor='let cam of cameras' [value]=cam>{{cam.name}}</nb-option>
+                </nb-select>
+            </div>
+            </nb-card-header>
+            <nb-card-body style="padding: 0px">
+              <ng2-smart-table
+                [settings]="settings"
+                [source]="source"
+              >
+              </ng2-smart-table>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </div>
+  </div>
